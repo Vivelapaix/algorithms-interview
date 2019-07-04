@@ -1,6 +1,7 @@
 # Stacks and Queues
 
 + [Сортировка стека](#сортировка-стека)
++ [Стек с поддержкой минимального элемента](#стек-с-поддержкой-минимального-элемента)
 
 ## Сортировка стека
 
@@ -27,3 +28,40 @@ public static void sortStack(Deque<Integer> stack) {
     }
 }       
 ```
+
+## Стек с поддержкой минимального элемента
+
+Реализовать стек с поддержкой возврата минимального элемента за константное время.
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
+public class MinStack extends Stack<Integer> {
+    private Deque<Integer> minStack;
+
+    public MinStack() {
+        minStack = new ArrayDeque<>();
+    }
+
+    public void push(int x) {
+        if (x <= getMin()) {
+            minStack.push(x);
+        }
+        super.push(x);
+    }
+
+    public Integer pop() {
+        if (super.peek() == getMin()) {
+            minStack.pop();
+        }
+        return super.pop();
+    }
+
+    public int getMin() {
+        return minStack.isEmpty() ? Integer.MAX_VALUE : minStack.peek();
+    }
+}
+```
+
