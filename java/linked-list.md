@@ -1,6 +1,7 @@
 # Linked list
 
 + [Повернуть односвязный список](#повернуть-односвязный-список)
++ [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 
 ## Повернуть односвязный список в обратном порядке
 
@@ -73,4 +74,44 @@ public class MyLinkedList<E>{
         head = previousNode;
     }
 }      
+```
+
+## Пересечение двух односвязных списков
+
+Найти узел пересечения двух односвязных списков, имеющих общий конец списков. 
+
+Если такого узла нет, то вернуть null. Переменная end введена для контроля, если списки не пересекаются.
+
+https://leetcode.com/problems/intersection-of-two-linked-lists/
+
+```java
+public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    if (headA == null || headB == null) return null;
+
+    int end = 0;
+    ListNode pA = headA;
+    ListNode pB = headB;
+
+    while (pA != pB) {
+        if (pA == null) {
+            pA = headB;
+            end++;
+        } else {
+            pA = pA.next;
+        }
+
+        if (pB == null) {
+            pB = headA;
+            end++;
+        } else {
+            pB = pB.next;
+        }
+
+        if (end > 2) {
+            break;
+        }
+    }
+
+    return end > 2 ? null : pA;
+}
 ```
