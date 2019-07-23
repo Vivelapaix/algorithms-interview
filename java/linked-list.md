@@ -3,6 +3,8 @@
 + [Повернуть односвязный список](#повернуть-односвязный-список)
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
++ [Найти цикл в односвязном списке 2](#цикл-в-односвязном-списке-2)
+
 
 ## Повернуть односвязный список в обратном порядке
 
@@ -159,5 +161,33 @@ public static ListNode detectCycle(ListNode head) {
     }
 
     return slow;
+}
+```
+
+## Найти цикл в односвязном списке 2
+
+Дан односвязный список. Определеить, существует ли цикл в данном списке.
+
+https://leetcode.com/problems/linked-list-cycle/
+
+```java
+public boolean hasCycle(ListNode head) {
+    if (head == null) return false;
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (true) {
+        if (fast == null || fast.next == null) {
+            return false;
+        }
+
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow == fast) {
+            return true;
+        }
+    }
 }
 ```
