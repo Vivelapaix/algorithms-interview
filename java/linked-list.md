@@ -4,6 +4,7 @@
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
 + [Найти цикл в односвязном списке 2](#цикл-в-односвязном-списке-2)
++ [Палиндром односвязный список](#палиндром-односвязный-список)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -198,5 +199,66 @@ public boolean hasCycle(ListNode head) {
             return true;
         }
     }
+}
+```
+
+## Палиндром односвязный список
+
+Проверить, является ли односвязный список палиндромом.
+
+https://leetcode.com/problems/palindrome-linked-list/
+
+```java
+public ListNode reverseList(ListNode head) {
+    if (head == null) return head;
+
+    ListNode prev = null;
+    ListNode cur = head;
+    ListNode next;
+
+    while (cur != null) {
+        next = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = next;
+    }
+    return prev;
+}
+
+public boolean isEqualLists(ListNode firstList, ListNode secondList) {
+    while (firstList != null && secondList != null) {
+        if (firstList.val != secondList.val) {
+            return false;
+        }
+        firstList = firstList.next;
+        secondList = secondList.next;
+    }
+    return true;
+}
+
+public boolean isPalindrome(ListNode head) {
+    if (head == null || head.next == null) {
+        return true;
+    }
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (true) {
+        if (fast == null || fast.next == null) {
+            break;
+        }
+
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    if (fast != null) {
+        slow = slow.next;
+    }
+
+    slow = reverseList(slow);
+
+    return isEqualLists(head, slow);
 }
 ```
