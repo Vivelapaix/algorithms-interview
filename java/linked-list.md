@@ -130,11 +130,8 @@ https://java2blog.com/find-start-node-of-loop-in-linkedlist/
 
 ```java
 public static ListNode detectCycle(ListNode head) {
-    if (head == null || head.next == null) {
-        return null;
-    }
+    if (head == null) return null;
 
-    boolean isCycle = false;
     ListNode slow = head;
     ListNode fast = head;
 
@@ -147,20 +144,14 @@ public static ListNode detectCycle(ListNode head) {
         fast = fast.next.next;
 
         if (slow == fast) {
-            isCycle = true;
-            break;
+            slow = head;
+            while (slow != fast) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return slow;
         }
     }
-
-    if (!isCycle) return null;
-
-    slow = head;
-    while (slow != fast) {
-        slow = slow.next;
-        fast = fast.next;
-    }
-
-    return slow;
 }
 ```
 
