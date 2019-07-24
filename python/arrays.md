@@ -2,6 +2,8 @@
 
 + [Max product of three](#max-product-of-three)
 + [Two sum](#two-sum)
++ [Contains duplicate](#contains-duplicate)
++ [Contains duplicate 2](#contains-duplicate-2)
 
 ## Max product of three
 
@@ -64,4 +66,38 @@ def twoSum(nums, target):
             left += 1
 
     return [sort_nums[left][1], sort_nums[right][1]]
+```
+
+## Contains duplicate
+
+https://leetcode.com/problems/contains-duplicate/
+
+1. Полный перебор всех пар.
+2. Отсортировать, проверить соседние элементы.
+3. 
+
+```python
+def containsDuplicate(nums):
+    s = set()
+    for num in nums:
+        if num in s:
+            return True
+        s.add(num)
+    return False
+```
+
+## Contains duplicate 2 
+
+Дан массив. Найти дубликаты. Каждый элемент 1 <= nums[i] < n. 
+
+https://medium.com/solvingalgo/solving-algorithmic-problems-find-a-duplicate-in-an-array-3d9edad5ad41
+
+```python
+def containsDuplicate(nums):
+    '''Each integer is between 1 and n'''
+    for i in nums:
+        if nums[abs(i)] < 0:
+            return abs(i)
+        nums[i] *= -1
+    return 0
 ```
