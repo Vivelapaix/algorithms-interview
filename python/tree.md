@@ -4,6 +4,7 @@
 + [Validate Binary Search Tree](#validate-binary-search-tree)
 + [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)
 + [Symmetric Tree](#symmetric-tree)
++ [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 
 
 ## Lowest Common Ancestor of a Binary Tree
@@ -90,4 +91,22 @@ def isSymmetric(self, root):
                and is_mirror(t1.left, t2.right)
 
     return is_mirror(root.left, root.right) if root else True
+```
+
+## Maximum Depth of Binary Tree
+
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+```python
+def maxDepth(self, root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    def get_max_depth(node):
+        if not node: return 0
+        return 1 + max(get_max_depth(node.left),
+                   get_max_depth(node.right))
+
+    return get_max_depth(root) if root else 0
 ```
