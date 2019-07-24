@@ -7,6 +7,7 @@
 + [Maximum subarray](#maximum-subarray)
 + [Maximum product subarray](#maximum-product-subarray)
 + [Container with most water](container-with-most-water)
++ [Best Time to Buy and Sell Stock](best-time-to-buy-and-sell-stock)
 
 
 ## Max product of three
@@ -167,4 +168,26 @@ def max_area(height):
             right -= 1
 
     return max_area
+```
+
+## Best Time to Buy and Sell Stock
+
+За один проход ищем минимальную стоимость и продаем в тот момент, когда разница между текущей ценой и минимальной ценой больше максимальной выгоды.
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+```python
+def maxProfit(self, prices):
+    if not prices:
+        return 0
+    min_price = prices[0]
+    max_profit = 0
+
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        elif price - min_price > max_profit:
+            max_profit = price - min_price
+
+    return max_profit
 ```
