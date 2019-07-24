@@ -2,6 +2,9 @@
 
 + [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
 + [Validate Binary Search Tree](#validate-binary-search-tree)
++ [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)
++ [Symmetric Tree](#symmetric-tree)
+
 
 ## Lowest Common Ancestor of a Binary Tree
 
@@ -45,4 +48,46 @@ def isValidBST(self, root):
             return False
 
         return True
+```
+
+## Binary Tree Inorder Traversal
+
+https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+```python
+def inorderTraversal(self, root):
+    """
+    :type root: TreeNode
+    :rtype: List[int]
+    """
+    res = []
+    def inorder_collect(node, res):
+        if node:
+            inorder_collect(node.left, res)
+            res.append(node.val)
+            inorder_collect(node.right, res)
+
+    inorder_collect(root, res)        
+    return res
+```
+
+## Symmetric Tree
+
+https://leetcode.com/problems/symmetric-tree/
+
+```python
+def isSymmetric(self, root):
+    """
+    :type root: TreeNode
+    :rtype: bool
+    """
+    def is_mirror(t1, t2):
+        if not t1 and not t2: return True
+        if not t1 or not t2: return False
+
+        return t1.val == t2.val \
+               and is_mirror(t1.right, t2.left)\
+               and is_mirror(t1.left, t2.right)
+
+    return is_mirror(root.left, root.right) if root else True
 ```
