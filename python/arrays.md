@@ -6,6 +6,7 @@
 + [Contains duplicate 2](#contains-duplicate-2)
 + [Maximum subarray](#maximum-subarray)
 + [Maximum product subarray](#maximum-product-subarray)
++ [Container with most water](container-with-most-water)
 
 
 ## Max product of three
@@ -144,4 +145,26 @@ def max_product(nums):
         min_product = min(tmp)
         res = max(res, max_product)
     return res
+```
+
+## Container with most water
+
+Два указателя. Вычисляем площадь, сдвигаем тот указатель, у которого значение высоты меньше.
+
+https://leetcode.com/problems/container-with-most-water/
+
+```python
+def max_area(height):
+    left, right = 0, len(height) - 1
+    max_area = -1
+
+    while left < right:
+        max_area = max(max_area,
+                       min(height[left], height[right]) * (right - left))
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+
+    return max_area
 ```
