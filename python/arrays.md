@@ -6,8 +6,9 @@
 + [Contains duplicate 2](#contains-duplicate-2)
 + [Maximum subarray](#maximum-subarray)
 + [Maximum product subarray](#maximum-product-subarray)
-+ [Container with most water](container-with-most-water)
-+ [Best Time to Buy and Sell Stock](best-time-to-buy-and-sell-stock)
++ [Container with most water](#container-with-most-water)
++ [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
++ [Closest Two Sum](#closest-two-sum)
 
 
 ## Max product of three
@@ -190,4 +191,36 @@ def maxProfit(self, prices):
             max_profit = price - min_price
 
     return max_profit
+```
+
+## Closest Two Sum
+
+Отсортировать массив, если требуется. Устанавливаем два указателя. На текущей итерации проверяем, что значения двух указателей ближе к искомому значению. Сдвигаем правый указатель, если сумма указателей больше искомого значения, иначе левый.
+
+https://java2blog.com/given-sorted-array-number-x-find-pair-closest-to-x-array/
+
+```python
+def closestTwoSum(nums, target):
+    '''Nums sorted'''
+
+    if not nums or len(nums) < 2:
+        raise Exception('Less than 2 values')
+    # tmp_nums = sorted([(num, i) for i, num in nums])
+    left, right = 0, len(nums) - 1
+    diff_sum = abs(target - (nums[0] + nums[1]))
+    min_diff_left, min_diff_right = 0, 1
+
+    while left < right:
+        cur_diff_sum = abs(target - (nums[left] + nums[right]))
+        if cur_diff_sum < diff_sum:
+            diff_sum = cur_diff_sum
+            min_diff_left = left
+            min_diff_right = right
+
+        if nums[left] + nums[right] > target:
+            right -= 1
+        else:
+            left += 1
+
+    return [min_diff_left, min_diff_right]
 ```
