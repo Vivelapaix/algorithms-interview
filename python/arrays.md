@@ -4,6 +4,9 @@
 + [Two sum](#two-sum)
 + [Contains duplicate](#contains-duplicate)
 + [Contains duplicate 2](#contains-duplicate-2)
++ [Maximum subarray](#maximum-subarray)
++ [Maximum product subarray](#maximum-product-subarray)
+
 
 ## Max product of three
 
@@ -100,4 +103,45 @@ def containsDuplicate(nums):
             return abs(i)
         nums[i] *= -1
     return 0
+```
+
+## Maximum subarray
+
+Выбрать максимум либо из подмассива, в котором всего один текущий элемент, либо из лучшего решения, полученного на предыдущих шагах.
+
+https://leetcode.com/problems/maximum-subarray/
+
+```python
+def max_subarray(nums):
+    if not nums: return
+    elif len(nums) == 1: return nums[0]
+
+    dp = [0] * len(nums)
+    dp[0] = nums[0]
+    for i in range(1, len(nums)):
+        dp[i] = max(dp[i - 1] + nums[i], nums[i])
+    return max(dp)
+```
+
+## Maximum product subarray
+
+Выбрать максимум либо из подмассива, в котором всего один текущий элемент, либо из лучшего решения, полученного на предыдущих шагах. Так как произведение отрицательных чисел может дать больший результат, то необходимо хранить максимальное и минимальное произведения предыдущих шагов.
+
+https://leetcode.com/problems/maximum-product-subarray/
+
+```python
+def max_product(nums):
+    if not nums: return
+    elif len(nums) == 1: return nums[0]
+
+    max_product = nums[0]
+    min_product = nums[0]
+    res = nums[0]
+
+    for i in range(1, len(nums)):
+        tmp = [max_product * nums[i], min_product * nums[i], nums[i]]
+        max_product = max(tmp)
+        min_product = min(tmp)
+        res = max(res, max_product)
+    return res
 ```
