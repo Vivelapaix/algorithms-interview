@@ -1,6 +1,7 @@
 # Tree
 
 + [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
++ [Validate Binary Search Tree](#validate-binary-search-tree)
 
 ## Lowest Common Ancestor of a Binary Tree
 
@@ -22,4 +23,26 @@ def lowestCommonAncestor(self, root, p, q):
 
         return left if not right else right
     return recurse_tree(root)
+```
+
+## Validate Binary Search Tree
+
+Используем минимальное и максимальное значения в левом и в правом поддеревьях, чтобы проверить.
+
+https://leetcode.com/problems/validate-binary-search-tree/
+
+```python
+def isValidBST(self, root):
+    def is_valid_subtree(node, lower = float('-inf'), upper = float('+inf')):
+        if not node: return True
+
+        if node.val <= lower or node.val >= upper:
+            return False
+
+        if not is_valid_subtree(node.left, lower, node.val):
+            return False
+        if not is_valid_subtree(node.right, node.val, upper):
+            return False
+
+        return True
 ```
