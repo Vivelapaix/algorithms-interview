@@ -1,6 +1,7 @@
 # String
 
 + [Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
++ [Longest Repeating Character Replacement](#longest-repeating-character-replacement)
 
 ## Longest Substring Without Repeating Characters
 
@@ -51,5 +52,37 @@ public class Solution {
         }
         return ans;
     }
+}
+```
+
+## Longest Repeating Character Replacement
+
+https://leetcode.com/problems/longest-repeating-character-replacement/
+
+Подсчитать количество вхождений наиболее часто встречающегося символа в окне, вычесть эту величину из размера окна.
+Тем самым мы найдем наименьшее количество замен, которые необходимы, чтобы в данном окне все символы были одинаковыми.
+
+Если вдруг `replaceCount > k`, то необходимо сдвинуть окно вправо и уменьшить `count`. Например, есть строка `ABAACA`. Окно есть `ABAAC`, мы его сдвигаем и уменьшаем `count`, чтобы получить окно `BAACA`.
+
+```java
+public int characterReplacement(String s, int k) {
+    int maxCount = 0;
+    int maxLength = 0;
+    int[] count = new int[26];
+
+    for (int left = 0, right = 0; right < s.length(); right++) {
+        char c = s.charAt(right);
+        maxCount = Math.max(maxCount, ++count[c - 'A']);
+        int windowSize = right - left + 1;
+        int replaceCount = windowSize - maxCount;
+        if (replaceCount > k) {
+            // invalid window
+            count[s.charAt(left) - 'A']--;
+            left++;
+        } else {
+            maxLength = Math.max(maxLength, windowSize);
+        }
+    }
+    return maxLength;
 }
 ```
