@@ -4,6 +4,7 @@
 + [Longest Repeating Character Replacement](#longest-repeating-character-replacement)
 + [Minimum Window Substring](#minimum-window-substring)
 + [Group Anagrams](#group-anagrams)
++ [Valid Parentheses](#valid-parentheses)
 
 ## Longest Substring Without Repeating Characters
 
@@ -194,5 +195,31 @@ public List<List<String>> groupAnagrams(String[] strs) {
     }
 
     return new ArrayList(res.values());
+}
+```
+
+## Valid Parentheses
+
+https://leetcode.com/problems/valid-parentheses/
+
+```java
+public boolean isValid(String s) {
+    Deque<Character> stack = new ArrayDeque<>();
+    Map<Character, Character> mapping = new HashMap<>();
+    mapping.put('}', '{');
+    mapping.put(']', '[');
+    mapping.put(')', '(');
+
+    for (char c : s.toCharArray()) {
+        if (mapping.containsKey(c)) {
+            char topElement = stack.isEmpty() ? '#' : stack.pop();
+            if (topElement != mapping.get(c)) {
+                return false;
+            }
+        } else {
+            stack.push(c);
+        }
+    }
+    return stack.isEmpty();
 }
 ```
