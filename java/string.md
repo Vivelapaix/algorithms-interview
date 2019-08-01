@@ -6,6 +6,7 @@
 + [Group Anagrams](#group-anagrams)
 + [Valid Parentheses](#valid-parentheses)
 + [Generate Parentheses](#generate-parentheses)
++ [Valid Palindrome](#valid-palindrome)
 
 ## Longest Substring Without Repeating Characters
 
@@ -246,5 +247,47 @@ public void backtrack(List<String> ans, String cur, int open, int close, int max
         backtrack(ans, cur + "(", open + 1, close, max);
     if (close < open)
         backtrack(ans, cur + ")", open, close + 1, max);
+}
+```
+
+## Valid Palindrome
+
+https://leetcode.com/problems/valid-palindrome/
+
+```java
+private static boolean isAlphaNumeric(char c) {
+    return (c >= 'a' && c <= 'z') ||
+            (c >= 'A' && c <= 'Z') ||
+            (c >= '0' && c <= '9');
+}
+
+private static int toLowerCase(char c) {
+    return c >= 'A' && c <= 'Z' ? c + ('a' - 'A') : c;
+}
+
+public boolean isPalindrome(String s) {
+    if (s == null || s.isEmpty() || s.length() == 1) {
+        return true;
+    }
+
+    int i = 0;
+    int j = s.length() - 1;
+    while (i < j) {
+        if (!isAlphaNumeric(s.charAt(i))) {
+            i++;
+        }
+        else if (!isAlphaNumeric(s.charAt(j))) {
+            j--;
+        }
+        else if (toLowerCase(s.charAt(i)) != toLowerCase(s.charAt(j))) {
+            return false;
+        }
+        else {
+            i++;
+            j--;
+        }
+    }
+
+    return i >= j;
 }
 ```
