@@ -3,6 +3,7 @@
 + [Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [Longest Repeating Character Replacement](#longest-repeating-character-replacement)
 + [Minimum Window Substring](#minimum-window-substring)
++ [Group Anagrams](#group-anagrams)
 
 ## Longest Substring Without Repeating Characters
 
@@ -153,5 +154,45 @@ public String minWindow(String s, String t) {
     }
 
     return ans[0] == Integer.MAX_VALUE ? "" : s.substring(ans[1], ans[2] + 1);
+}
+```
+
+## Group Anagrams
+
+https://leetcode.com/problems/group-anagrams/
+
+1. Можно сортировать каждую строку и использовать отсортированный вид для ключа в словаре. В итоге в значениях будут анаграммы.
+2. Зная, что алфавит состоит только из 26 символов, можно ускорить решение. Будем подсчитывать в каждой строке частоту встречаемости каждой буквы, а потом из этих частот формировать ключ для словаря.
+
+```java
+public List<List<String>> groupAnagrams(String[] strs) {
+    int[] freq = new int[26];
+    Map<String, List<String>> res = new HashMap<>();
+
+    for (String s : strs) {
+        // first solution
+        // char[] ca = s.toCharArray();
+        // Arrays.sort(ca);
+        // String key = String.valueOf(ca);
+    
+        Arrays.fill(freq, 0);
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < 26; i++) {
+            sb.append('#').append(freq[i]);
+        }
+
+        String key = sb.toString();
+        if (!res.containsKey(key)) {
+            res.put(key, new ArrayList<>());
+        }
+
+        res.get(key).add(s);
+    }
+
+    return new ArrayList(res.values());
 }
 ```
