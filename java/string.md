@@ -2,6 +2,7 @@
 
 + [Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [Longest Repeating Character Replacement](#longest-repeating-character-replacement)
++ [Minimum Window Substring](#minimum-window-substring)
 
 ## Longest Substring Without Repeating Characters
 
@@ -84,5 +85,73 @@ public int characterReplacement(String s, int k) {
         }
     }
     return maxLength;
+}
+```
+
+## Minimum Window Substring
+
+https://leetcode.com/problems/minimum-window-substring/
+
+1. Вычислить количество повторений каждого символа в `t`.
+2. Объявляем два указателя и начинаем двигаться.
+3. На каждой итерации увеличиваем число повторений символа из `s`.
+4. `formed` используется, чтобы сигнализировать, что в окно входят все символы из `t` с равным количеством повторений.
+5. Как только строка сформирована, мы начинаем двигать левую границу `left`, уменьшая количество повторений символа из `s`. Если оказалось так, что число повторений символа не совпадает, то окно становится недействительным, поэтому начинаем сдвигать правую границу `right`.
+
+```java
+public String minWindow(String s, String t) {
+    if (s == null || t == null ||
+        s.length() == 0 || t.length() == 0) {
+        return "";
+    }
+
+    Map<Character, Integer> charFreqInT = new HashMap<>();
+    int count;
+    for (int i = 0; i < t.length(); i++) {
+        count = charFreqInT.getOrDefault(t.charAt(i), 0);
+        charFreqInT.put(t.charAt(i), count + 1);
+    }
+
+    int left = 0;
+    int right = 0;
+    Map<Character, Integer> charFreqInWindow = new HashMap<>();
+
+    int required = charFreqInT.size();
+    int formed = 0;
+
+    int[] ans = {Integer.MAX_VALUE, 0, 0};
+    // 0 - length, 1 - leftIndex, 2 - rightIndex
+
+    while (right < s.length()) {
+        char c = s.charAt(right);
+
+        count = charFreqInWindow.getOrDefault(c, 0);
+        charFreqInWindow.put(c, count + 1);
+
+        if (charFreqInT.containsKey(c) &&
+            charFreqInT.get(c).intValue() == charFreqInWindow.get(c).intValue()) {
+            formed++;
+        }
+
+        while (left <= right && formed == required) {
+            if (right - left + 1 < ans[0]) {
+                ans[0] = right - left + 1;
+                ans[1] = left;
+                ans[2] = right;
+            }
+
+            c = s.charAt(left);
+            left++;
+
+            charFreqInWindow.put(c, charFreqInWindow.get(c) - 1);
+            if (charFreqInT.containsKey(c) &&
+                charFreqInWindow.get(c) < charFreqInT.get(c)) {
+                formed--;
+            }
+        }
+        right++;
+    }
+
+    return ans[0] == Integer.MAX_VALUE ? "" : s.substring(ans[1], ans[2] + 1);
 }
 ```
