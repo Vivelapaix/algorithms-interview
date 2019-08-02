@@ -4,6 +4,8 @@
 + [Coin Change](#coin-change)
 + [Unique Paths](#unique-paths)
 + [Unique Paths 2](#unique-paths-ii)
++ [Jump Game](#jump-game)
++ [Jump Game 2](#jump-game-ii)
 
 ## Climbing Stairs
 
@@ -117,5 +119,41 @@ public int uniquePathsWithObstacles(int[][] obstacleGrid) {
     }
 
     return obstacleGrid[m - 1][n - 1];
+}
+```
+
+## Jump Game
+
+https://leetcode.com/problems/jump-game/
+
+```java
+public boolean canJump(int[] nums) {
+    int lastPos = nums.length - 1;
+    for (int i = nums.length - 1; i >= 0 ; i--) {
+        if (i + nums[i] >= lastPos) {
+            lastPos = i;
+        }
+    }
+    return lastPos == 0;
+}
+```
+
+## Jump Game 2
+
+https://leetcode.com/problems/jump-game-ii/
+
+```java
+public static int jump(int[] nums) {
+    int reachable = 0, lastReachable = 0, steps = 0;
+
+    for (int i = 0; i < nums.length - 1; i++) {
+        reachable = Math.max(reachable, i + nums[i]);
+        if (i == lastReachable) {
+            steps++;
+            lastReachable = reachable;
+            if (reachable >= nums.length - 1) break;
+        }
+    }
+    return lastReachable >= nums.length - 1 ? steps : 0;
 }
 ```
