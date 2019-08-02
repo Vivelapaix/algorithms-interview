@@ -2,6 +2,8 @@
 
 + [Climbing Stairs](#climbing-stairs)
 + [Coin Change](#coin-change)
++ [Unique Paths](#unique-paths)
++ [Unique Paths 2](#unique-paths-ii)
 
 ## Climbing Stairs
 
@@ -45,5 +47,75 @@ public int coinChange(int[] coins, int amount) {
         }
     }
     return coinCount[amount] > amount ? -1 : coinCount[amount];
+}
+```
+
+## Unique Paths
+
+https://leetcode.com/problems/unique-paths/
+
+```java
+public static int uniquePaths(int m, int n) {
+    if (m == 0 || n == 0) return 1;
+
+    int[][] paths = new int[m][n];
+
+    for (int i = 0; i < n; i++) {
+        paths[0][i] = 1;
+    }
+
+    for (int i = 0; i < m; i++) {
+        paths[i][0] = 1;
+    }
+
+    for (int i = 1; i < m; i++) {
+        for (int j = 1; j < n; j++) {
+            paths[i][j] = paths[i - 1][j] + paths[i][j -1];
+        }
+    }
+
+    return paths[m - 1][n - 1];
+}
+```
+
+## Unique Paths 2
+
+https://leetcode.com/problems/unique-paths-ii/
+
+```java
+public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+    if (obstacleGrid == null) return 0;
+
+    int m = obstacleGrid.length;
+    int n = obstacleGrid[0].length;
+
+    if (obstacleGrid[0][0] == 1) {
+        return 0;
+    }
+
+    obstacleGrid[0][0] = 1; // 1 path
+
+    for (int i = 1; i < m; i++) {
+        obstacleGrid[i][0] = (obstacleGrid[i][0] == 0
+                && obstacleGrid[i - 1][0] == 1) ? 1 : 0;
+    }
+
+    for (int i = 1; i < n; i++) {
+        obstacleGrid[0][i] = (obstacleGrid[0][i] == 0
+                && obstacleGrid[0][i - 1] == 1) ? 1 : 0;
+    }
+
+    for (int i = 1; i < m; i++) {
+        for (int j = 1; j < n; j++) {
+            if (obstacleGrid[i][j] == 0) {
+                obstacleGrid[i][j] =
+                        obstacleGrid[i - 1][j] + obstacleGrid[i][j - 1];
+            } else {
+                obstacleGrid[i][j] = 0;
+            }
+        }
+    }
+
+    return obstacleGrid[m - 1][n - 1];
 }
 ```
