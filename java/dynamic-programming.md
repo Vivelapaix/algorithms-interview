@@ -7,6 +7,7 @@
 + [Jump Game](#jump-game)
 + [Jump Game 2](#jump-game-ii)
 + [House Robber](#house-robber)
++ [House Robber Two](#house-robber-two)
 
 ## Climbing Stairs
 
@@ -182,5 +183,32 @@ public int rob(int[] nums) {
     }
 
     return max;
+}
+```
+
+## House Robber Two
+
+https://leetcode.com/problems/house-robber-ii/
+
+```java
+public int rob(int[] nums) {
+    if (nums == null || nums.length == 0) return 0;
+    if (nums.length == 1) return nums[0];
+
+    int[] robFirst = new int[nums.length];
+    int[] noRobFirst = new int[nums.length];
+
+    robFirst[0] = nums[0];
+    robFirst[1] = Math.max(nums[0], nums[1]);
+
+    noRobFirst[0] = 0;
+    noRobFirst[1] = nums[1];
+
+    for (int i = 2; i < nums.length; i++) {
+        robFirst[i] = Math.max(robFirst[i - 2] + nums[i], robFirst[i - 1]);
+        noRobFirst[i] = Math.max(noRobFirst[i - 2] + nums[i], noRobFirst[i - 1]);
+    }
+
+    return Math.max(robFirst[nums.length - 2], noRobFirst[nums.length - 1]);
 }
 ```
