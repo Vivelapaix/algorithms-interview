@@ -8,6 +8,7 @@
 + [Generate Parentheses](#generate-parentheses)
 + [Valid Palindrome](#valid-palindrome)
 + [Longest Palindromic Substring](#longest-palindromic-substring)
++ [Palindromic Substrings](#palindromic-substrings)
 
 ## Longest Substring Without Repeating Characters
 
@@ -321,5 +322,51 @@ private int expandAroundCenter(String s, int left, int right) {
         right++;
     }
     return right - left - 1;
+}
+```
+
+## Palindromic Substrings
+
+https://leetcode.com/problems/palindromic-substrings/
+
+```java
+public int countSubstrings(String s) {
+    if (s == null) return 0;
+
+    int count = 0;
+    for (int i = 0; i < s.length(); i++) {
+        count += expandAroundCenter(s, i, i);
+        count += expandAroundCenter(s, i, i + 1);
+    }
+    return count;
+}
+
+private static int expandAroundCenter(String s, int left, int right) {
+    int count = 0;
+    while (left >= 0 && right < s.length()
+            && s.charAt(left) == s.charAt(right)) {
+        count++;
+        left--;
+        right++;
+    }
+    return count;
+}
+```
+
+Либо такое решение
+
+```java
+public int countSubstrings(String S) {
+    int N = S.length(), ans = 0;
+    for (int center = 0; center <= 2*N-1; ++center) {
+        int left = center / 2;
+        int right = left + center % 2;
+        while (left >= 0 && right < N && S.charAt(left) == S.charAt(right)) {
+            ans++;
+            left--;
+            right++;
+        }
+    }
+    return ans;
 }
 ```
