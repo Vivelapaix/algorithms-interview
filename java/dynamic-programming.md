@@ -8,6 +8,7 @@
 + [Jump Game 2](#jump-game-ii)
 + [House Robber](#house-robber)
 + [House Robber Two](#house-robber-two)
++ [Decode Ways](#decode-ways)
 
 ## Climbing Stairs
 
@@ -206,5 +207,38 @@ public int rob(int[] nums) {
     }
 
     return Math.max(robFirst[nums.length - 2], noRobFirst[nums.length - 1]);
+}
+```
+
+## Decode Ways
+
+https://leetcode.com/problems/decode-ways/
+
+Каждая ячейка массива содержит максимальное количество способов раскодировать строку длины `i`. Если длина строки `i`, то индексы в этой строке от `0` до `i - 1`. 
+
+```java
+public int numDecodings(String s) {
+    int[] dp = new int[s.length() + 1];
+
+    dp[0] = 1;
+    dp[1] = s.charAt(0) == '0' ? 0 : 1;
+
+    // max ways to decode string with length i
+    for(int i = 2; i <= s.length(); i++) {
+        char cur = s.charAt(i - 1);
+        char prev = s.charAt(i - 2);
+
+        // one digit
+        if (cur > '0') {
+            dp[i] += dp[i - 1];
+        }
+
+        // two digits
+        if (prev == '1' && cur <= '9' || prev == '2' && cur <= '6') {
+            dp[i] += dp[i - 2];
+        }
+    }
+
+    return dp[s.length()];
 }
 ```
