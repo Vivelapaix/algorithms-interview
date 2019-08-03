@@ -214,6 +214,8 @@ public int rob(int[] nums) {
 
 https://leetcode.com/problems/decode-ways/
 
+https://www.youtube.com/watch?v=cQX3yHS0cLo
+
 Каждая ячейка массива содержит максимальное количество способов раскодировать строку длины `i`. Если длина строки `i`, то индексы в этой строке от `0` до `i - 1`. 
 
 ```java
