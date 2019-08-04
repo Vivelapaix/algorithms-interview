@@ -8,6 +8,7 @@
 + [Subtree of Another Tree](#subtree-of-another-tree)
 + [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
 + [Implement Trie (Prefix Tree)](#implement-trie-prefix-tree)
++ [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
 
 ## Maximum Depth of Binary Tree
 
@@ -173,6 +174,25 @@ public int kthSmallest(TreeNode root, int k) {
       if (--k == 0) return root.val;
       root = root.right;
   }
+}
+```
+
+## Lowest Common Ancestor of a Binary Tree
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+```java
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null) return null;
+    if (root == p || root == q) return root;
+
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+    if (left != null && right != null) return root;
+    if (left == null && right == null) return null;
+
+    return left == null ? right : left; 
 }
 ```
 
