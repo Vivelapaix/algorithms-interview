@@ -5,6 +5,7 @@
 + [Invert Binary Tree](#invert-binary-tree)
 + [Path Sum](#path-sum)
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
++ [Subtree of Another Tree](#subtree-of-another-tree)
 
 ## Maximum Depth of Binary Tree
 
@@ -111,5 +112,27 @@ public List<List<Integer>> levelOrder(TreeNode root) {
         if (!newLevel.isEmpty()) res.add(newLevel);
     }
     return res;
+}
+```
+
+## Subtree of Another Tree
+
+https://leetcode.com/problems/subtree-of-another-tree/
+
+```java
+public boolean isSubtree(TreeNode s, TreeNode t) {
+    return traverse(s, t);
+}
+
+public boolean equalsTree(TreeNode x, TreeNode y) {
+    if (x == null && y == null) return true;
+    if (x == null || y == null) return false;
+    if (x.val != y.val) return false;
+    return equalsTree(x.left, y.left) && equalsTree(x.right, y.right);
+}
+
+public boolean traverse(TreeNode s, TreeNode t) {
+    return s != null && 
+        (equalsTree(s, t) || traverse(s.left, t) || traverse(s.right, t));
 }
 ```
