@@ -3,6 +3,7 @@
 + [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 + [Same Tree](#same-tree)
 + [Invert Binary Tree](#invert-binary-tree)
++ [Path Sum](#path-sum)
 
 ## Maximum Depth of Binary Tree
 
@@ -62,5 +63,17 @@ public TreeNode invertTree(TreeNode root) {
         if (current.right != null) queue.add(current.right);
     }
     return root;
+}
+```
+
+## Path Sum
+
+https://leetcode.com/problems/path-sum/
+
+```java
+public boolean hasPathSum(TreeNode root, int sum) {
+    if (root == null) return false;
+    if (root.left == null && root.right == null) return root.val == sum; 
+    return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
 }
 ```
