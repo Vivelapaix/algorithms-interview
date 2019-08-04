@@ -4,6 +4,7 @@
 + [Same Tree](#same-tree)
 + [Invert Binary Tree](#invert-binary-tree)
 + [Path Sum](#path-sum)
++ [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 
 ## Maximum Depth of Binary Tree
 
@@ -75,5 +76,40 @@ public boolean hasPathSum(TreeNode root, int sum) {
     if (root == null) return false;
     if (root.left == null && root.right == null) return root.val == sum; 
     return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+}
+```
+
+## Binary Tree Level Order Traversal
+
+https://leetcode.com/problems/binary-tree-level-order-traversal/
+
+`ArrayDeque` не добавляет `null` объекты, кидает исключение.
+
+```java
+public List<List<Integer>> levelOrder(TreeNode root) {
+    if (root == null) return new ArrayList<>();
+    Queue<TreeNode> queue = new LinkedList<>();
+    List<List<Integer>> res = new ArrayList<>();
+    queue.add(root);
+    int level_cnt = 1, current_level_cnt = 1;
+
+    while(!queue.isEmpty()) {
+        current_level_cnt = level_cnt;
+
+        List<Integer> newLevel = new ArrayList<>();
+        level_cnt = 0;
+        while (current_level_cnt > 0) {
+            TreeNode current = queue.poll();
+            if (current != null) {
+                newLevel.add(current.val);
+                queue.add(current.left);
+                queue.add(current.right);
+                level_cnt += 2;
+            }
+            current_level_cnt--;
+        }
+        if (!newLevel.isEmpty()) res.add(newLevel);
+    }
+    return res;
 }
 ```
