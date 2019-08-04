@@ -7,6 +7,7 @@
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 + [Subtree of Another Tree](#subtree-of-another-tree)
 + [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
++ [Implement Trie (Prefix Tree)](#implement-trie-prefix-tree)
 
 ## Maximum Depth of Binary Tree
 
@@ -172,5 +173,88 @@ public int kthSmallest(TreeNode root, int k) {
       if (--k == 0) return root.val;
       root = root.right;
   }
+}
+```
+
+## Implement Trie (Prefix Tree)
+
+https://leetcode.com/problems/implement-trie-prefix-tree/
+
+```java
+class Trie {
+    class TrieNode {
+        private TrieNode[] childrens;
+
+        private final int R = 26;
+
+        private boolean isEnd;
+
+        public TrieNode() {
+            childrens = new TrieNode[R];
+        }
+
+        public boolean containsKey(char ch) {
+            return childrens[ch - 'a'] != null;
+        }
+
+        public TrieNode get(char ch) {
+            return childrens[ch -'a'];
+        }
+
+        public void put(char ch, TrieNode node) {
+            childrens[ch - 'a'] = node;
+        }
+
+        public void setEnd() {
+            isEnd = true;
+        }
+
+        public boolean isEnd() {
+            return isEnd;
+        }
+    }
+    
+    private TrieNode root;
+    
+    /** Initialize your data structure here. */
+    public Trie() {
+        root = new TrieNode();
+    }
+    
+    /** Inserts a word into the trie. */
+    public void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            if (!node.containsKey(c)) {
+                node.put(c, new TrieNode());
+            }
+            node = node.get(c);
+        }
+        node.setEnd();
+    }
+    
+    private TrieNode searchPrefix(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            if (node.containsKey(c)) {
+                node = node.get(c);
+            } else {
+                return null;
+            }
+        }
+        return node;
+    }
+    
+    /** Returns if the word is in the trie. */
+    public boolean search(String word) {
+        TrieNode node = searchPrefix(word);
+        return node != null && node.isEnd();
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    public boolean startsWith(String prefix) {
+        TrieNode node = searchPrefix(prefix);
+        return node != null;
+    }
 }
 ```
