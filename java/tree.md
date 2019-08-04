@@ -6,6 +6,7 @@
 + [Path Sum](#path-sum)
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 + [Subtree of Another Tree](#subtree-of-another-tree)
++ [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
 
 ## Maximum Depth of Binary Tree
 
@@ -134,5 +135,42 @@ public boolean equalsTree(TreeNode x, TreeNode y) {
 public boolean traverse(TreeNode s, TreeNode t) {
     return s != null && 
         (equalsTree(s, t) || traverse(s.left, t) || traverse(s.right, t));
+}
+```
+
+## Kth Smallest Element in a BST
+
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+
+```java
+public void inOrder(TreeNode root, List<Integer> lst) {
+    if (root == null) return;
+    inOrder(root.left, lst);
+    lst.add(root.val);
+    inOrder(root.right, lst);
+}
+
+public int kthSmallest(TreeNode root, int k) {
+    List<Integer> nums = new ArrayList<Integer>();
+    inOrder(root, nums);
+    return nums.get(k - 1);
+}
+```
+
+Либо итеративно
+
+```java
+public int kthSmallest(TreeNode root, int k) {
+  Deque<TreeNode> stack = new ArrayDeque<>();
+
+  while (true) {
+      while (root != null) {
+          stack.push(root);
+          root = root.left;
+      }
+      root = stack.pop();
+      if (--k == 0) return root.val;
+      root = root.right;
+  }
 }
 ```
