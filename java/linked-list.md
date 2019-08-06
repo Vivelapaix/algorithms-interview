@@ -5,6 +5,7 @@
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
 + [Найти цикл в односвязном списке 2](#цикл-в-односвязном-списке-2)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
++ [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -260,5 +261,35 @@ public boolean isPalindrome(ListNode head) {
     slow = reverseList(slow);
 
     return isEqualLists(head, slow);
+}
+```
+
+## Remove Nth Node From End of List
+
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+
+```java
+public ListNode removeNthFromEnd(ListNode head, int n) {
+    if (head == null || n == 0) return head;
+    ListNode first = head, second = head;
+
+    while (n-- > 0) {
+        first = first.next;
+    }
+
+    while (first != null && first.next != null) {
+        first = first.next;
+        second = second.next;
+    }
+
+    first = first == null ? second : second.next;
+    if (first == head) {
+        head = first.next;
+    } else {
+        second.next = first.next;
+    }
+    first.next = null;
+
+    return head;
 }
 ```
