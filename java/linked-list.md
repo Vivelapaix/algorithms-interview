@@ -3,7 +3,7 @@
 + [Повернуть односвязный список](#повернуть-односвязный-список)
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
-+ [Найти цикл в односвязном списке 2](#цикл-в-односвязном-списке-2)
++ [Linked List Cycle Two](#linked-list-cycle-ii)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
@@ -141,13 +141,12 @@ public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 }
 ```
 
-
-## Найти цикл в односвязном списке
+## Linked List Cycle Two
 
 Дан односвязный список, вернуть узел начала цикла в списке. Если нет цикла, то вернуть null.
 
-https://leetcode.com/problems/linked-list-cycle/
 https://leetcode.com/problems/linked-list-cycle-ii/
+
 https://java2blog.com/find-start-node-of-loop-in-linkedlist/
 
 ```java
