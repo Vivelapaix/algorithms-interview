@@ -3,7 +3,7 @@
 + [Повернуть односвязный список](#повернуть-односвязный-список)
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
-+ [Linked List Cycle Two](#linked-list-cycle-ii)
++ [Linked List Cycle Two](#linked-list-cycle-two)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
