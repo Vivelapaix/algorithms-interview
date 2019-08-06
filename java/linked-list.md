@@ -6,6 +6,7 @@
 + [Найти цикл в односвязном списке 2](#цикл-в-односвязном-списке-2)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
++ [Reorder List](#reorder-list)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -291,5 +292,69 @@ public ListNode removeNthFromEnd(ListNode head, int n) {
     first.next = null;
 
     return head;
+}
+```
+
+## Reorder List
+
+https://leetcode.com/problems/reorder-list/
+
+Развернуть вторую половину списка и слить в один список.
+
+```java
+private ListNode reverseList(ListNode head) {
+    if (head == null || head.next == null) return head;
+
+    ListNode cur = head;
+    ListNode prev = null;
+    ListNode next;
+
+    while (cur != null) {
+        next = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = next;
+    }
+    return prev;
+}
+
+private ListNode mergeLists(ListNode first, ListNode second) {
+    ListNode curFirst = first, nextFirst;
+    ListNode curSecond = second, nextSecond;
+
+    while (curFirst != null && curSecond != null) {
+        nextFirst = curFirst.next;
+        nextSecond = curSecond.next;
+
+        curFirst.next = curSecond;
+        curSecond.next = nextFirst;
+
+        curFirst = nextFirst;
+        curSecond = nextSecond;
+    }
+    return first;
+}
+
+public void reorderList(ListNode head) {
+    if (head == null || head.next == null || head.next.next == null) {
+        return;
+    }
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    fast = slow;
+    if (fast != null) {
+        fast = slow.next;
+        slow.next = null;
+    }
+
+    fast = reverseList(fast);        
+    head = mergeLists(head, fast);
 }
 ```
