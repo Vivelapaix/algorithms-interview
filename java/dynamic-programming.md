@@ -93,6 +93,8 @@ https://leetcode.com/problems/longest-common-subsequence/
 
 https://www.youtube.com/watch?time_continue=1&v=NnD96abizww
 
+https://leetcode.com/problems/longest-common-subsequence/discuss/351689/Java-Two-DP-codes-of-O(mn)-and-O(min(m-n))-spaces-w-picture-and-analysis
+
 ```java
 public int longestCommonSubsequence(String text1, String text2) {
     if (text1 == null || text2 == null) return 0;
