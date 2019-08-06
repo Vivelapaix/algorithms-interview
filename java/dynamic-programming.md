@@ -4,6 +4,7 @@
 + [Coin Change](#coin-change)
 + [Longest Increasing Subsequence](#longest-increasing-subsequence)
 + [Longest Common Subsequence](#longest-common-subsequence)
++ [Word Break](#word-break)
 + [Unique Paths](#unique-paths)
 + [Unique Paths Two](#unique-paths-ii)
 + [Jump Game](#jump-game)
@@ -112,6 +113,59 @@ public int longestCommonSubsequence(String text1, String text2) {
         }
     }
     return dp[text1.length()][text2.length()];
+}
+```
+
+## Word Break
+
+https://leetcode.com/problems/word-break/
+
+`dp[i]` говорит о том, можно ли составить подстроку от `0` до `i-1` из слов словаря
+
+`dp[0] = true` - начальная инициализация
+
+```java
+public boolean wordBreak(String s, List<String> wordDict) {
+    if (s == null || wordDict.isEmpty()) return false;
+
+    Set<String> dict = new HashSet<>(wordDict);
+    boolean[] dp = new boolean[s.length() + 1];
+    dp[0] = true;
+    String substr;
+
+    for (int i = 0; i < s.length() + 1; i++) {
+        if (!dp[i]) continue;
+        for (int j = i + 1; j <= s.length(); j++) {
+            substr = s.substring(i, j);
+            if (dict.contains(substr)) {
+                dp[j] = true;
+            }
+        }
+    }
+    return dp[s.length()];
+}
+```
+
+Либо такое решение
+
+```java
+public boolean wordBreak(String s, List<String> wordDict) {
+    if (s == null || wordDict.isEmpty()) return false;
+
+    boolean[] dp = new boolean[s.length() + 1];
+    dp[0] = true;
+
+    for (int i = 0; i < s.length(); i++) {
+        if (!dp[i]) continue;
+        for (String word : wordDict) {
+            int end = i + word.length();
+            if (end > s.length() || dp[end]) continue;
+            if (s.substring(i, end).equals(word)) {
+                dp[end] = true;
+            }
+        }
+    }
+    return dp[s.length()];
 }
 ```
 
