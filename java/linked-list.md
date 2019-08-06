@@ -8,6 +8,7 @@
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
 + [Middle of the Linked List](#middle-of-the-linked-list)
++ [Merge Two Sorted Lists](#merge-two-sorted-lists)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -375,5 +376,37 @@ public ListNode middleNode(ListNode head) {
         fast = fast.next.next;
     }
     return slow;
+}
+```
+
+## Merge Two Sorted Lists
+
+https://leetcode.com/problems/merge-two-sorted-lists/
+
+```java
+public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    if (l1 == null && l2 == null) return null;
+    if (l1 == null) return l2;
+    if (l2 == null) return l1;
+
+    ListNode sortedList = new ListNode(0);
+    ListNode cur = sortedList;
+
+    while (l1 != null && l2 != null) {
+        if (l1.val < l2.val) {
+            cur.next = l1;
+            l1 = l1.next;
+        } else {
+            cur.next = l2;
+            l2 = l2.next;
+        }
+        cur.next.next = null;
+        cur = cur.next;
+    }
+
+    if (l1 != null) cur.next = l1;
+    if (l2 != null) cur.next = l2;
+
+    return sortedList.next;
 }
 ```
