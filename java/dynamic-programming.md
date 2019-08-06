@@ -2,10 +2,11 @@
 
 + [Climbing Stairs](#climbing-stairs)
 + [Coin Change](#coin-change)
++ [Longest Increasing Subsequence](#longest-increasing-subsequence)
 + [Unique Paths](#unique-paths)
-+ [Unique Paths 2](#unique-paths-ii)
++ [Unique Paths Two](#unique-paths-ii)
 + [Jump Game](#jump-game)
-+ [Jump Game 2](#jump-game-ii)
++ [Jump Game Two](#jump-game-ii)
 + [House Robber](#house-robber)
 + [House Robber Two](#house-robber-two)
 + [Decode Ways](#decode-ways)
@@ -55,6 +56,36 @@ public int coinChange(int[] coins, int amount) {
 }
 ```
 
+## Longest Increasing Subsequence
+
+https://leetcode.com/problems/longest-increasing-subsequence/
+
+Создаем массив `dp`, где `dp[i]` - длина наибольшей возрастающей подпоследовательности, включая `i` элемент в `nums`.
+
+```java
+public int lengthOfLIS(int[] nums) {
+    if (nums == null || nums.length == 0) return 0;
+
+    int[] dp = new int[nums.length];
+    dp[0] = 1;
+    int maxLen = 1;
+    int maxVal;
+
+    for (int i = 1; i < nums.length; i++) {
+        maxVal = 0;
+        for (int j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                maxVal = Math.max(maxVal, dp[j]);
+            }
+        }
+        dp[i] = maxVal + 1;
+        maxLen = Math.max(maxLen, dp[i]);
+    }
+
+    return maxLen;
+}
+```
+
 ## Unique Paths
 
 https://leetcode.com/problems/unique-paths/
@@ -83,7 +114,7 @@ public static int uniquePaths(int m, int n) {
 }
 ```
 
-## Unique Paths 2
+## Unique Paths Two
 
 https://leetcode.com/problems/unique-paths-ii/
 
@@ -141,7 +172,7 @@ public boolean canJump(int[] nums) {
 }
 ```
 
-## Jump Game 2
+## Jump Game Two
 
 https://leetcode.com/problems/jump-game-ii/
 
