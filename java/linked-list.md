@@ -7,6 +7,7 @@
 + [Палиндром односвязный список](#палиндром-односвязный-список)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
++ [Middle of the Linked List](#middle-of-the-linked-list)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -356,5 +357,24 @@ public void reorderList(ListNode head) {
 
     fast = reverseList(fast);        
     head = mergeLists(head, fast);
+}
+```
+
+## Middle of the Linked List
+
+https://leetcode.com/problems/middle-of-the-linked-list/
+
+```java
+public ListNode middleNode(ListNode head) {
+    if (head == null || head.next == null) return head;
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
 }
 ```
