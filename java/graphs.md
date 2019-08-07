@@ -3,6 +3,7 @@
 + [Количество компонент связности](#количество-компонент-связности)
 + [Порядок прохождения курсов](#порядок-прохождения-курсов)
 + [Clone Graph](#clone-graph)
++ [Number of Islands](#number-of-islands)
 
 ## Количество компонент связности
 
@@ -178,5 +179,38 @@ public Node cloneGraph(Node node) {
         }
     }
     return map.get(node);
+}
+```
+
+## Number of Islands
+
+https://leetcode.com/problems/number-of-islands/
+
+```java
+public int numIslands(char[][] grid) {
+    int count = 0;
+    for (int row = 0; row < grid.length; row++) {
+        for (int column = 0; column < grid[0].length; column++) {
+            if (grid[row][column] == '1') {
+                dfs(grid, row, column);
+                count++;    
+            }
+        }
+    }
+    return count;
+}
+
+private void dfs(char[][] grid, int row, int column) {
+    if (row < 0 || row >= grid.length ||
+        column < 0 || column >= grid[0].length || 
+        grid[row][column] == '0' || grid[row][column] == 'x') {
+        return;
+    }
+
+    grid[row][column] = 'x';
+    dfs(grid, row + 1, column);
+    dfs(grid, row - 1, column);
+    dfs(grid, row, column + 1);
+    dfs(grid, row, column - 1);
 }
 ```
