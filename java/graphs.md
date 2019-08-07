@@ -4,6 +4,7 @@
 + [Порядок прохождения курсов](#порядок-прохождения-курсов)
 + [Clone Graph](#clone-graph)
 + [Number of Islands](#number-of-islands)
++ [Alien Dictionary](#alien-dictionary)
 
 ## Количество компонент связности
 
@@ -212,5 +213,74 @@ private void dfs(char[][] grid, int row, int column) {
     dfs(grid, row - 1, column);
     dfs(grid, row, column + 1);
     dfs(grid, row, column - 1);
+}
+```
+
+## Alien Dictionary
+
+https://leetcode.com/problems/alien-dictionary/
+
+https://www.geeksforgeeks.org/given-sorted-dictionary-find-precedence-characters/
+
+```java
+public String alienOrder(String[] words) {
+    if(words == null || words.length == 0) return "";
+    Map<Character, Set<Character>> graph = new HashMap<>();
+    Map<Character, Integer> inDegree = new HashMap<>();
+    buildGraph(words, graph, inDegree);
+    String order = topologicalSort(graph, inDegree);
+    return order.length() == graph.size() ? order : "";
+}
+
+private void buildGraph(String[] words,
+                        Map<Character, Set<Character>> graph,
+                        Map<Character, Integer> inDegree) {
+    for (String s : words) {
+        for (char c : s.toCharArray()) {
+            graph.put(c, new HashSet<>());
+            inDegree.put(c, 0);
+        }
+    }
+
+    for (int i = 0; i < words.length - 1; i++) {
+        String first = words[i];
+        String second = words[i + 1];
+        int len = Math.max(first.length(), second.length());
+
+        for (int j = 0; j < len; j++) {
+            char src = first.charAt(j);
+            char dst = second.charAt(j);
+            if (src != dst) {
+                if (!graph.get(src).contains(dst)) {
+                    graph.get(src).add(dst);
+                    inDegree.put(dst, inDegree.get(dst) + 1);
+                }
+                break;
+            }
+        }
+    }
+}
+
+private String topologicalSort(Map<Character, Set<Character>> graph,
+                               Map<Character, Integer> inDegree) {
+    Queue<Character> queue = new ArrayDeque<>();
+    for (char c : graph.keySet()) {
+        if (inDegree.get(c) == 0) {
+            queue.add(c);
+        }
+    }
+    char current;
+    StringBuilder order = new StringBuilder();
+    while(!queue.isEmpty()) {
+        current = queue.poll();
+        order.append(current);
+        for (char neighbor : graph.get(current)) {
+            inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+            if (inDegree.get(neighbor) == 0) {
+                queue.add(neighbor);
+            }
+        }
+    }
+    return order.toString();
 }
 ```
