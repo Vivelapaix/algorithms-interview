@@ -9,6 +9,7 @@
 + [Reorder List](#reorder-list)
 + [Middle of the Linked List](#middle-of-the-linked-list)
 + [Merge Two Sorted Lists](#merge-two-sorted-lists)
++ [Sort List](#sort-list)
 
 
 ## Повернуть односвязный список в обратном порядке
@@ -408,5 +409,59 @@ public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     if (l2 != null) cur.next = l2;
 
     return sortedList.next;
+}
+```
+
+## Sort List
+
+https://leetcode.com/problems/sort-list/
+
+```java
+public ListNode sortList(ListNode head) {
+    if (head == null || head.next == null) return head;
+
+    ListNode slow = head;
+    ListNode fast = head;
+    ListNode prevSlow = head;
+
+    while (fast != null && fast.next != null) {
+        prevSlow = slow;
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    if (fast != null) {
+        prevSlow = slow;
+        slow = slow.next;
+    }
+    prevSlow.next = null;
+
+    return mergeLists(sortList(head), sortList(slow));
+}
+
+private ListNode mergeLists(ListNode l1, ListNode l2) {
+    if (l1 == null && l2 == null) return null;
+    if (l1 == null) return l2;
+    if (l2 == null) return l1;
+
+    ListNode head = new ListNode(0);
+    ListNode cur = head;
+
+    while (l1 != null && l2 != null) {
+        if (l1.val < l2.val) {
+            cur.next = l1;
+            l1 = l1.next;
+        } else {
+            cur.next = l2;
+            l2 = l2.next;
+        }
+        cur.next.next = null;
+        cur = cur.next;
+    }
+
+    if (l1 != null) cur.next = l1;
+    if (l2 != null) cur.next = l2;
+
+    return head.next;
 }
 ```
