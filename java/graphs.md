@@ -2,6 +2,7 @@
 
 + [Количество компонент связности](#количество-компонент-связности)
 + [Порядок прохождения курсов](#порядок-прохождения-курсов)
++ [Clone Graph](#clone-graph)
 
 ## Количество компонент связности
 
@@ -148,4 +149,34 @@ public class Solution {
     }
 }
 
+```
+
+## Clone Graph
+
+https://leetcode.com/problems/clone-graph/
+
+Применить BFS.
+
+```java
+public Node cloneGraph(Node node) {
+    if (node == null) return null;
+    Map<Node, Node> map = new HashMap<>();
+    Queue<Node> queue = new ArrayDeque<>();
+    Node current;
+
+    map.put(node, new Node(node.val, new ArrayList<Node>()));
+    queue.add(node);
+
+    while(!queue.isEmpty()) {
+        current = queue.poll();
+        for(Node neighbor : current.neighbors) {
+            if (!map.containsKey(neighbor)) {
+                map.put(neighbor, new Node(neighbor.val, new ArrayList<Node>()));
+                queue.add(neighbor);
+            }
+            map.get(current).neighbors.add(map.get(neighbor));
+        }
+    }
+    return map.get(node);
+}
 ```
