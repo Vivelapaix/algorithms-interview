@@ -6,6 +6,7 @@
 + [Path Sum](#path-sum)
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 + [Subtree of Another Tree](#subtree-of-another-tree)
++ [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 + [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
 + [Implement Trie (Prefix Tree)](#implement-trie-prefix-tree)
 + [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
@@ -137,6 +138,36 @@ public boolean equalsTree(TreeNode x, TreeNode y) {
 public boolean traverse(TreeNode s, TreeNode t) {
     return s != null && 
         (equalsTree(s, t) || traverse(s.left, t) || traverse(s.right, t));
+}
+```
+
+## Construct Binary Tree from Preorder and Inorder Traversal
+
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+Cначала составляем отображение между значениями inorder обхода и индексов.
+
+Начинаем preorder обход. `left` и `right` - это границы при inorder обходе, `root` - это индекс корня при preorder обходе. `inorderIndex - left + 1` используется для того, чтобы узнать, на сколько индексов необходимо сдвинуть `root`, чтобы получить корень для правого поддерева.
+
+```java
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < inorder.length; i++) {
+        map.put(inorder[i], i);
+    }
+    return getTree(preorder, map, 0, inorder.length - 1, 0);
+}
+
+private TreeNode getTree(int[] preorder, Map<Integer, Integer> map, int left, int right, int root) {
+    if (root >= preorder.length) return null;
+    int rootValue = preorder[root];
+    int inorderIndex = map.get(rootValue);
+    if (inorderIndex < left || inorderIndex > right) return null;
+
+    TreeNode rootNode = new TreeNode(rootValue);
+    rootNode.left = getTree(preorder, map, left, inorderIndex - 1, root + 1);
+    rootNode.right = getTree(preorder, map, inorderIndex + 1, right, root + (inorderIndex - left + 1));
+    return rootNode;
 }
 ```
 
