@@ -8,8 +8,9 @@
 + [Subtree of Another Tree](#subtree-of-another-tree)
 + [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 + [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
-+ [Implement Trie (Prefix Tree)](#implement-trie-prefix-tree)
 + [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
++ [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
++ [Implement Trie (Prefix Tree)](#implement-trie-prefix-tree)
 
 ## Maximum Depth of Binary Tree
 
@@ -224,6 +225,33 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     if (left == null && right == null) return null;
 
     return left == null ? right : left; 
+}
+```
+
+## Lowest Common Ancestor of a Binary Search Tree
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+```java
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || p == null || q == null) return null;
+
+    int pValue = p.val;
+    int qValue = q.val;
+    int parentValue;
+
+    TreeNode node = root;
+    while (node != null) {
+        parentValue = node.val;
+        if (pValue > parentValue && qValue > parentValue) {
+            node = node.right;
+        } else if (pValue < parentValue && qValue < parentValue) {
+            node = node.left;
+        } else {
+            return node;
+        }
+    }
+    return null;
 }
 ```
 
