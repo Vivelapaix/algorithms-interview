@@ -2,6 +2,7 @@
 
 + [Find the Duplicate Number](#find-the-duplicate-number)
 + [Longest Consecutive Sequence](#longest-consecutive-sequence)
++ [3Sum](#3sum)
 
 ## Find the Duplicate Number
 
@@ -45,5 +46,42 @@ public int longestConsecutive(int[] nums) {
         }
     }
     return maxLen;
+}
+```
+
+## 3Sum
+
+https://leetcode.com/problems/3sum/
+
+```java
+public List<List<Integer>> threeSum(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (nums == null || nums.length < 3) return res;
+    Arrays.sort(nums);
+    List<Integer> triplet;
+    for (int i = 0; i < nums.length; i++) {
+
+        if (i != 0 && nums[i] == nums[i - 1]) continue;
+        int j = i + 1;
+        int k = nums.length - 1;
+
+        while (j < k) {
+            if (nums[i] + nums[j] + nums[k] == 0) {
+                triplet = new ArrayList<>();
+                triplet.add(nums[i]);
+                triplet.add(nums[j]);
+                triplet.add(nums[k]);
+                res.add(triplet);
+                j++;
+
+                while (j < k && nums[j] == nums[j - 1]) j++;
+            } else if (nums[i] + nums[j] + nums[k] > 0) {
+                k--;
+            } else {
+                j++;
+            }
+        }
+    }
+    return res;
 }
 ```
