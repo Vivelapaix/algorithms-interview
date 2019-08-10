@@ -1,7 +1,46 @@
 # Intervals
 
++ [Insert Interval](#insert-interval)
 + [Merge Intervals](#merge-intervals)
 + [Non-overlapping Intervals](#non-overlapping-intervals)
+
+## Insert Interval
+
+https://leetcode.com/problems/insert-interval/
+
+```java
+public int[][] insert(int[][] intervals, int[] newInterval) {
+    int i = 0;
+    List<int[]> res = new ArrayList<>();
+
+    if (intervals.length == 0 || newInterval[0] < intervals[0][0]) {
+        res.add(newInterval);
+    }
+
+    for (i = 0; i < intervals.length; i++) {
+        if (newInterval[0] < intervals[i][0]) {
+            break;
+        }
+        res.add(intervals[i]);
+    }
+
+    addInterval(res, newInterval);
+
+    for (; i < intervals.length; i++) {
+        addInterval(res, intervals[i]);
+    }
+    return res.toArray(new int[res.size()][2]);
+}
+
+private void addInterval(List<int[]> intervals, int[] newInterval) {
+    if (intervals.get(intervals.size() - 1)[1] < newInterval[0]) {
+        intervals.add(newInterval);
+    } else {
+        intervals.get(intervals.size() - 1)[1] = 
+            Math.max(intervals.get(intervals.size() - 1)[1], newInterval[1]);
+    }
+}
+```
 
 ## Merge Intervals
 
