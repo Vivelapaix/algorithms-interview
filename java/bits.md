@@ -3,6 +3,7 @@
 + [Single Number](#single-number)
 + [Number of 1 Bits](#number-of-1-bits)
 + [Counting Bits](#counting-bits)
++ [Missing Number](#missing-number)
 
 ## Single Number
 
@@ -60,5 +61,19 @@ public int[] countBits(int num) {
         }
     }
     return res;
+}
+```
+
+## Missing Number
+
+https://leetcode.com/problems/missing-number/
+
+```java
+public int missingNumber(int[] nums) {
+    int missing = nums.length;
+    for (int i = 0; i < nums.length; i++) {
+        missing ^= i ^ nums[i];
+    }
+    return missing;
 }
 ```
