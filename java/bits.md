@@ -1,6 +1,7 @@
 # Bits
 
 + [Single Number](#single-number)
++ [Sum of Two Integers](#sum-of-two-integers)
 + [Number of 1 Bits](#number-of-1-bits)
 + [Counting Bits](#counting-bits)
 + [Missing Number](#missing-number)
@@ -15,6 +16,22 @@ public int singleNumber(int[] nums) {
     int a = 0;
     for (int num : nums) {
         a ^= num;
+    }
+    return a;
+}
+```
+
+## Sum of Two Integers
+
+https://leetcode.com/problems/sum-of-two-integers/
+
+```java
+public int getSum(int a, int b) {
+    int carry;
+    while (b != 0) {
+        carry = a & b;
+        a = a ^ b;
+        b = carry << 1;
     }
     return a;
 }
