@@ -4,6 +4,7 @@
 + [Number of 1 Bits](#number-of-1-bits)
 + [Counting Bits](#counting-bits)
 + [Missing Number](#missing-number)
++ [Reverse Bits](#reverse-bits)
 
 ## Single Number
 
@@ -75,5 +76,20 @@ public int missingNumber(int[] nums) {
         missing ^= i ^ nums[i];
     }
     return missing;
+}
+```
+
+## Reverse Bits
+
+https://leetcode.com/problems/reverse-bits/
+
+```java
+public int reverseBits(int n) {
+    int result = 0;
+    for (int i = 0; i < 32; i++) {
+        result = (result << 1) | (n & 1);
+        n >>= 1;
+    }
+    return result;
 }
 ```
