@@ -1,6 +1,7 @@
 # Intervals
 
 + [Merge Intervals](#merge-intervals)
++ [Non-overlapping Intervals](#non-overlapping-intervals)
 
 ## Merge Intervals
 
@@ -52,5 +53,32 @@ private List<Interval> mergeIntervals(List<Interval> intervals) {
         }
     }
     return merged;
+}
+```
+
+## Non-overlapping Intervals
+
+https://leetcode.com/problems/non-overlapping-intervals/
+
+```java
+public int eraseOverlapIntervals(int[][] intervals) {
+    if (intervals.length == 0) return 0;
+
+    Arrays.sort(intervals, new Comparator<int[]>(){
+        @Override
+        public int compare(int[] a, int[] b){
+            return a[1]-b[1];
+        }
+    });
+    //Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+
+    int prevIntervalEnd = intervals[0][1], countNonOverlap = 1;
+    for (int i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] >= prevIntervalEnd) {
+            countNonOverlap++;
+            prevIntervalEnd = intervals[i][1];
+        }
+    }
+    return intervals.length - countNonOverlap;
 }
 ```
