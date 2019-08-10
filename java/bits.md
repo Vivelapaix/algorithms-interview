@@ -2,6 +2,7 @@
 
 + [Single Number](#single-number)
 + [Number of 1 Bits](#number-of-1-bits)
++ [Counting Bits](#counting-bits)
 
 ## Single Number
 
@@ -41,5 +42,23 @@ public int hammingWeight(int n) {
         n >>>= 1;
     }
     return count;
+}
+```
+
+## Counting Bits
+
+https://leetcode.com/problems/counting-bits/
+
+```java
+public int[] countBits(int num) {
+    int[] res = new int[num + 1];
+    for (int i = 1; i <= num; i++) {
+        if (i % 2 == 0) {
+            res[i] = res[i >> 1];
+        } else {                
+            res[i] = res[i >> 1] + 1;
+        }
+    }
+    return res;
 }
 ```
