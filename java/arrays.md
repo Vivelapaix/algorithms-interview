@@ -1,5 +1,6 @@
 # Arrays
 
++ [Subarray Sum Equals K](#subarray-sum-equals-k)
 + [Maximum subarray](#maximum-subarray)
 + [Maximum product subarray](#maximum-product-subarray)
 + [Find the Duplicate Number](#find-the-duplicate-number)
@@ -9,6 +10,54 @@
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [3Sum](#3sum)
 
+
+## Subarray Sum Equals K
+
+Идея в том, чтобы сохранять в `map` на `i` итерации сумму элементов с `0` до `i` включительно.
+По формуле `sum[j] - sum[i] = k`, где `j > i`, получим сумму элементов подмассива с `i + 1` до `j`. Если на `j` итерации значение `sum[j] - k` присутствует в `map`, то это значит, что был найден подмассив с `i + 1` до `j`, сумма элементов которого равна `k`.
+
+https://leetcode.com/problems/subarray-sum-equals-k/
+
+```java
+public int subarraySum(int[] nums, int k) {
+    if (nums == null || nums.length == 0) return 0;
+
+    int sum = 0;
+    int count = 0;
+    Map<Integer, Integer> map = new HashMap<>();
+    map.put(0, 1);
+
+    for (int i = 0; i < nums.length; i++) {
+        sum += nums[i];
+        if (map.containsKey(sum - k)) {
+            count += map.get(sum - k);
+        }
+        map.put(sum, map.getOrDefault(sum, 0) + 1);
+    }
+
+    return count;
+}
+```
+
+или такое решение за `O(n*n)`
+
+```java
+public int subarraySum(int[] nums, int k) {
+    if (nums == null || nums.length == 0) return 0;
+
+    int count = 0;
+    for (int startIndex = 0; startIndex < nums.length; startIndex++) {
+        int sum = 0;
+        for (int endIndex = startIndex; endIndex < nums.length; endIndex++) {
+            sum += nums[endIndex];
+            if (sum == k) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+```
 
 ## Maximum subarray
 
