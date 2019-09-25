@@ -1,6 +1,7 @@
 # Arrays
 
 + [Maximum subarray](#maximum-subarray)
++ [Maximum product subarray](#maximum-product-subarray)
 + [Find the Duplicate Number](#find-the-duplicate-number)
 + [Longest Consecutive Sequence](#longest-consecutive-sequence)
 + [Product of Array Except Self](#product-of-array-except-self)
@@ -33,6 +34,31 @@ public int maxSubArray(int[] nums) {
 }
 ```
 
+## Maximum product subarray
+
+Выбрать максимум либо из подмассива, в котором всего один текущий элемент, либо из лучшего решения, полученного на предыдущих шагах. Так как произведение отрицательных чисел может дать больший результат, то необходимо хранить максимальное и минимальное произведения предыдущих шагов.
+
+https://leetcode.com/problems/maximum-product-subarray/
+
+```java
+public int maxProduct(int[] nums) {
+    if (nums == null || nums.length == 0) return 0;
+    if (nums.length == 1) return nums[0];
+
+    int maxProduct = nums[0];
+    int minProduct = nums[0];
+    int res = nums[0];
+
+    for (int i = 1; i < nums.length; i++) {
+        int tmp[] = {maxProduct * nums[i], minProduct * nums[i], nums[i]};
+        maxProduct = Math.max(Math.max(tmp[0], tmp[1]), tmp[2]);
+        minProduct = Math.min(Math.min(tmp[0], tmp[1]), tmp[2]);
+        res = Math.max(res, maxProduct);
+    }
+
+    return res;
+}
+```
 
 ## Find the Duplicate Number
 
