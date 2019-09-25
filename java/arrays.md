@@ -1,6 +1,7 @@
 # Arrays
 
 + [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
++ [Container With Most Water](#container-with-most-water)
 + [Subarray Sum Equals K](#subarray-sum-equals-k)
 + [Maximum subarray](#maximum-subarray)
 + [Maximum product subarray](#maximum-product-subarray)
@@ -11,6 +12,32 @@
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [3Sum](#3sum)
 
+
+## Container With Most Water
+
+Два указателя. Вычисляем площадь, сдвигаем тот указатель, у которого значение высоты меньше.
+
+https://leetcode.com/problems/container-with-most-water/
+
+```java
+public int maxArea(int[] height) {
+    if (height == null || height.length == 0) return 0;
+
+    int left = 0, right = height.length - 1;
+    int maxAreaRes = 0;
+
+    while (left < right) {
+        maxAreaRes = Math.max(Math.min(height[left], height[right]) * (right - left),
+                              maxAreaRes);
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxAreaRes;
+}
+```
 
 ## Best Time to Buy and Sell Stock
 
