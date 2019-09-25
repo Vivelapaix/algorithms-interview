@@ -342,3 +342,40 @@ public List<List<Integer>> threeSum(int[] nums) {
     return res;
 }
 ```
+
+## Closest Two Sum
+
+Отсортировать массив, если требуется. Устанавливаем два указателя. На текущей итерации проверяем, что значения двух указателей ближе к искомому значению. Сдвигаем правый указатель, если сумма указателей больше искомого значения, иначе левый.
+
+https://java2blog.com/given-sorted-array-number-x-find-pair-closest-to-x-array/
+
+```java
+public static int[] closestTwoSum(int[] nums, int target) {
+    if (nums == null || nums.length == 0 || nums.length == 1) {
+        return new int[0];
+    }
+
+    //Arrays.sort(nums);
+    int left = 0, right = nums.length - 1;
+    int diff = Math.abs(target - (nums[left] + nums[right]));
+    int[] resIndices = {0, 1};
+
+    while (left < right) {
+        int sum = nums[left] + nums[right];
+        
+        if (Math.abs(target - sum) < diff) {
+            diff = Math.abs(target - sum);
+            resIndices[0] = left;
+            resIndices[1] = right;
+        }
+        
+        if (sum > target) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+
+    return resIndices;
+}
+```
