@@ -1,11 +1,38 @@
 # Arrays
 
++ [Maximum subarray](#maximum-subarray)
 + [Find the Duplicate Number](#find-the-duplicate-number)
 + [Longest Consecutive Sequence](#longest-consecutive-sequence)
 + [Product of Array Except Self](#product-of-array-except-self)
 + [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [3Sum](#3sum)
+
+
+## Maximum subarray
+
+Выбрать максимум либо из подмассива, в котором всего один текущий элемент, либо из лучшего решения, полученного на предыдущих шагах.
+
+https://leetcode.com/problems/maximum-subarray/
+
+```java
+public int maxSubArray(int[] nums) {
+    if (nums == null || nums.length == 0) return 0;
+    if (nums.length == 1) return nums[0];
+
+    int sum = nums[0];
+    int maxSum = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+        sum = Math.max(sum + nums[i], nums[i]);
+        if (sum > maxSum) {
+            maxSum = sum;
+        }
+    }
+
+    return maxSum;
+}
+```
+
 
 ## Find the Duplicate Number
 
