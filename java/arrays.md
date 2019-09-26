@@ -12,6 +12,7 @@
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [3Sum](#3sum)
 + [Closest Two Sum](#closest-two-sum)
++ [Max Consecutive Ones](#max-consecutive-ones)
 
 
 ## Container With Most Water
@@ -378,5 +379,25 @@ public static int[] closestTwoSum(int[] nums, int target) {
     }
 
     return resIndices;
+}
+```
+
+## Max Consecutive Ones
+
+https://leetcode.com/problems/max-consecutive-ones/
+
+```java
+public int findMaxConsecutiveOnes(int[] nums) {
+    int maxOnes = 0;
+    for (int i = 0; i < nums.length; i++) {
+        if (nums[i] == 0) continue;
+        int count = 1;
+        while (i < nums.length - 1 && nums[i] == nums[i + 1]) {
+            count++;
+            i++;
+        }
+        maxOnes = Math.max(maxOnes, count);
+    }
+    return maxOnes;
 }
 ```
