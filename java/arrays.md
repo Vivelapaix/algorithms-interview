@@ -13,6 +13,7 @@
 + [3Sum](#3sum)
 + [Closest Two Sum](#closest-two-sum)
 + [Max Consecutive Ones](#max-consecutive-ones)
++ [Max Consecutive Ones III](#max-consecutive-ones-iii)
 
 
 ## Container With Most Water
@@ -397,6 +398,39 @@ public int findMaxConsecutiveOnes(int[] nums) {
             i++;
         }
         maxOnes = Math.max(maxOnes, count);
+    }
+    return maxOnes;
+}
+```
+
+## Max Consecutive Ones III
+
+Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
+Return the length of the longest (contiguous) subarray that contains only 1s. 
+
+Идея в том, чтобы использовать окно из двух указателей, постоянно вычисляя `right - left + 1`. В тот момент, когда встретятся `K + 1` нулей, начинаем двигать левый указатель, пока в окне не останется ровно `K` нулей.
+
+https://leetcode.com/problems/max-consecutive-ones-iii/
+
+```java
+public int longestOnes(int[] A, int K) {
+    if (A == null || A.length == 0) return 0;
+    int left = 0, right = 0;
+    int maxOnes = 0;
+    int zerosCount = 0;
+
+    while (right < A.length) {
+        if (A[right] == 0) {
+            zerosCount++;
+        }
+        while (zerosCount > K) {
+            if (A[left] == 0) {
+                zerosCount--;
+            }
+            left++;
+        }
+        maxOnes = Math.max(maxOnes, right - left + 1);
+        right++;
     }
     return maxOnes;
 }
