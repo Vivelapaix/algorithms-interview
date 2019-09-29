@@ -1,6 +1,7 @@
 # Design
 
 + [Insert Delete GetRandom O(1)](#insert-delete-getrandom-o1)
++ [Binary Search Tree Iterator](#binary-search-tree-iterator)
 
 ## Insert Delete GetRandom O(1)
 
@@ -46,6 +47,43 @@ class RandomizedSet {
     /** Get a random element from the set. */
     public int getRandom() {
         return list.get(random.nextInt(list.size()));
+    }
+}
+```
+
+## Binary Search Tree Iterator
+
+https://leetcode.com/problems/binary-search-tree-iterator/
+
+```java
+class BSTIterator {
+
+    Deque<TreeNode> stack;
+    
+    public BSTIterator(TreeNode root) {
+        this.stack = new ArrayDeque<>();
+        this.leftmostInorder(root);
+    }
+    
+    private void leftmostInorder(TreeNode root) {
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
+        }
+    }
+    
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode topNode = stack.pop();
+        if (topNode.right != null) {
+            leftmostInorder(topNode.right);
+        }
+        return topNode.val;    
+    }
+    
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return stack.size() > 0;
     }
 }
 ```
