@@ -253,6 +253,35 @@ public void backtrack(List<String> ans, String cur, int open, int close, int max
 }
 ```
 
+или вот так
+
+```java
+public List<String> generateParenthesis(int n) {
+    char[] str = new char[n * 2];
+    List<String> ans = new ArrayList<>();
+    backtrack(ans, str, n, n, 0);
+    return ans;
+}
+
+public void backtrack(List<String> ans, char[] str, int open, int close, int count) {
+    if (open < 0 || close < open) return;
+    
+    if (open == 0 && close == 0) {
+        ans.add(String.copyValueOf(str));
+        return;
+    }
+
+    if (open > 0) {
+        str[count] = '(';
+        backtrack(ans, str, open - 1, close, count + 1);
+    }
+    if (close > open) {
+        str[count] = ')';
+        backtrack(ans, str, open, close - 1, count + 1);
+    }
+}
+```
+
 ## Valid Palindrome
 
 https://leetcode.com/problems/valid-palindrome/
