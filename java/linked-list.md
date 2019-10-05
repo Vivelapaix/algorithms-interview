@@ -1,6 +1,6 @@
 # Linked list
 
-+ [Повернуть односвязный список](#повернуть-односвязный-список)
++ [Reverse Linked List](#reverse-linked-list)
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
 + [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
 + [Linked List Cycle Two](#linked-list-cycle-two)
@@ -12,7 +12,9 @@
 + [Sort List](#sort-list)
 
 
-## Повернуть односвязный список в обратном порядке
+## Reverse Linked List
+
+https://leetcode.com/problems/reverse-linked-list/
 
 ```java
 public void reverse() {
