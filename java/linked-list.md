@@ -11,6 +11,7 @@
 + [Merge Two Sorted Lists](#merge-two-sorted-lists)
 + [Sort List](#sort-list)
 + [Add Two Numbers](#add-two-numbers)
++ [Merge k Sorted Lists](#merge-k-sorted-lists)
 
 
 ## Reverse Linked List
@@ -504,6 +505,54 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
     if (carry != 0) {
         current.next = new ListNode(carry);
+    }
+
+    return dummy.next;
+}
+```
+
+
+## Merge k Sorted Lists
+
+https://leetcode.com/problems/merge-k-sorted-lists/
+
+```java
+public ListNode mergeKLists(ListNode[] lists) {
+    int k = lists.length;
+    int interval = 1;
+
+    while (interval < k) {
+        for (int i = 0; i < k - interval; i += interval * 2) {
+            lists[i] = mergeTwoLists(lists[i], lists[i + interval]);
+        }
+        interval *= 2;
+    }
+
+    return k > 0 ? lists[0] : null;
+}
+
+private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    ListNode dummy = new ListNode();
+    ListNode current = dummy;
+
+    while (l1 != null && l2 != null) {
+        if (l1.val < l2.val) {
+            current.next = l1;
+            l1 = l1.next;
+        } else {
+            current.next = l2;
+            l2 = l2.next;
+        }
+        current.next.next = null;
+        current = current.next;
+    }
+
+    if (l1 != null) {
+        current.next = l1;
+    }
+
+    if (l2 != null) {
+        current.next = l2;
     }
 
     return dummy.next;
