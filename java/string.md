@@ -489,3 +489,40 @@ public String getSortedStringOptimized(String str){
     return sb.toString();
 }
 ```
+
+
+## Find All Anagrams in a String
+
+https://leetcode.com/problems/find-all-anagrams-in-a-string/
+
+```java
+public List<Integer> findAnagrams(String s, String p) {
+    List<Integer> result = new ArrayList<>();
+    int[] pFreq = getCharFreqs(p, 0, p.length());
+    int[] sFreq = null;
+    for (int i = 0; i < s.length() && i + p.length() - 1 < s.length(); i++) {
+        if (isFreqEquals(getCharFreqs(s, i, i + p.length()), pFreq)) {
+            result.add(i);
+        }
+    }
+    return result;
+}
+
+public int[] getCharFreqs(String s, int start, int end){
+    int[] freqs = new int[26];
+
+    for (int i = start; i < s.length() && i < end; i++) {
+        freqs[s.charAt(i) - 'a']++;
+    }
+    return freqs;
+}
+
+public boolean isFreqEquals(int[] sFreq, int[] pFreq) {
+    for (int i = 0; i < sFreq.length; i++) {
+        if (sFreq[i] != pFreq[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+```
