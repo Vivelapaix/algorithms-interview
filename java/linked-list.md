@@ -35,11 +35,9 @@ public void reverse() {
 or
 
 public ListNode reverseList(ListNode head) {
-    if (head == null || head.next == null) return head;
-
     ListNode prev = null;
     ListNode cur = head;
-    ListNode next;
+    ListNode next = null;
 
     while (cur != null) {
         next = cur.next;
@@ -47,6 +45,7 @@ public ListNode reverseList(ListNode head) {
         prev = cur;
         cur = next;
     }
+
     return prev;
 }
 ```
