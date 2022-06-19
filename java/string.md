@@ -10,6 +10,7 @@
 + [Longest Palindromic Substring](#longest-palindromic-substring)
 + [Palindromic Substrings](#palindromic-substrings)
 + [Is Subsequence](#is-subsequence)
++ [Valid Anagram](#valid-anagram)
 
 ## Longest Substring Without Repeating Characters
 
