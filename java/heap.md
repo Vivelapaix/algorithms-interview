@@ -2,6 +2,7 @@
 
 + [Top K Frequent Elements](#top-k-frequent-elements)
 + [Kth Largest Element in an Array](#kth-largest-element-in-an-array)
++ [Top K Frequent Words](#top-k-frequent-words)
 
 ## Top K Frequent Elements
 
@@ -50,5 +51,33 @@ public int findKthLargest(int[] nums, int k) {
     }
 
     return heap.poll();
+}
+```
+
+## Top K Frequent Words
+
+https://leetcode.com/problems/top-k-frequent-words/
+
+```java
+public List<String> topKFrequent(String[] words, int k) {
+    Map<String, Integer> map = new HashMap<>();
+    Queue<String> pq = new PriorityQueue<>(
+        (a, b) -> map.get(a) - map.get(b) == 0 ? a.compareTo(b) : map.get(b) - map.get(a)
+    );
+    List<String> result = new ArrayList<>();
+
+    for (String word : words) {
+        map.put(word, map.getOrDefault(word, 0) + 1);
+    }
+
+    for (String word : map.keySet()) {
+        pq.add(word);
+    }
+
+    while (k-- > 0) {
+        result.add(pq.poll());
+    }
+
+    return result;
 }
 ```
