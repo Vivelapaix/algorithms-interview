@@ -20,6 +20,25 @@ public int singleNumber(int[] nums) {
     return a;
 }
 ```
+Remarks
+```
+We know every number is appears twice except a single number which appears only single time.
+
+See, we already discuss a thing a that xor of a same number with itself is zero, i.e A ^ A = 0
+Now, we will look some more property of xor-
+
+1) xor of a same number with itself is zero, i.e A ^ A = 0
+2) xor is commutative that means a ^ b = b ^ a.
+3) xor of any number with zero is the number itself i.e A ^ 0 = A.
+
+Suppose our array is arr[]: [5, 1, 3, 1, 3, 4, 5, 7, 4]
+we will rearrange the array, and take all the numbers together, then our array looks like
+                     arr[]: [1, 1, 3, 3, 4, 4, 5, 5, 7]
+					 now, take xor of all numbers -
+					 1 ^ 1 ^ 3 ^ 3 ^ 4 ^ 4 ^ 5 ^ 5 ^ 7   (rearrange the array)
+					   0   ^   0   ^   0   ^   0   ^ 7   (see point number 1)
+					               7                     (see point number 3) 
+```
 
 ## Sum of Two Integers
 
