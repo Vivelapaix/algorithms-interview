@@ -11,6 +11,7 @@
 + [Palindromic Substrings](#palindromic-substrings)
 + [Is Subsequence](#is-subsequence)
 + [Valid Anagram](#valid-anagram)
++ [Find All Anagrams in a String](#find-all-anagrams-in-a-string)
 
 ## Longest Substring Without Repeating Characters
 
