@@ -2,6 +2,7 @@
 
 + [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 + [Same Tree](#same-tree)
++ [Symmetric Tree](#symmetric-tree)
 + [Invert Binary Tree](#invert-binary-tree)
 + [Path Sum](#path-sum)
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
@@ -34,6 +35,28 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     if (p.val != q.val) return false;
     return isSameTree(p.left, q.left) &&
            isSameTree(p.right, q.right);
+}
+```
+
+## Symmetric Tree
+
+https://leetcode.com/problems/symmetric-tree/
+
+```java
+public boolean isSymmetric(TreeNode root) {
+    return root == null ? true : isMirror(root.left, root.right);
+}
+
+private boolean isMirror(TreeNode p, TreeNode q) {
+    if (p == null && q == null) {
+        return true;
+    }
+
+    if (p == null || q == null) {
+        return false;
+    }
+
+    return p.val == q.val && isMirror(p.left, q.right) && isMirror(p.right, q.left);
 }
 ```
 
