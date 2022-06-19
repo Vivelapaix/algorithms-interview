@@ -14,6 +14,7 @@
 + [Closest Two Sum](#closest-two-sum)
 + [Max Consecutive Ones](#max-consecutive-ones)
 + [Max Consecutive Ones III](#max-consecutive-ones-iii)
++ [Two Sum](#two-sum)
 
 
 ## Container With Most Water
@@ -433,5 +434,22 @@ public int longestOnes(int[] A, int K) {
         right++;
     }
     return maxOnes;
+}
+```
+
+## Two Sum
+
+https://leetcode.com/problems/two-sum/
+
+```java
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for(int i = 0; i < nums.length; i++) {
+        if (map.containsKey(target - nums[i])) {
+            return new int[] {map.get(target - nums[i]), i};
+        }
+        map.put(nums[i], i);
+    }
+    return new int[] {-1, -1};
 }
 ```
