@@ -170,6 +170,7 @@ https://leetcode.com/problems/group-anagrams/
 1. Можно сортировать каждую строку и использовать отсортированный вид для ключа в словаре. В итоге в значениях будут анаграммы.
 2. Зная, что алфавит состоит только из 26 символов, можно ускорить решение. Будем подсчитывать в каждой строке частоту встречаемости каждой буквы, а потом из этих частот формировать ключ для словаря.
 
+Solution 1:
 ```java
 public List<List<String>> groupAnagrams(String[] strs) {
     int[] freq = new int[26];
@@ -200,6 +201,45 @@ public List<List<String>> groupAnagrams(String[] strs) {
     }
 
     return new ArrayList(res.values());
+}
+```
+
+Solution 2:
+```java
+public List<List<String>> groupAnagrams(String[] strs) {
+    Map<String, List<String>> result = new HashMap<>();
+    for (String str : strs) {
+        String key = getSortedStringOptimized(str);
+        if (result.containsKey(key)) {
+            result.get(key).add(str);
+        } else {
+            List<String> values = new ArrayList<>();
+            values.add(str);
+            result.put(key, values);
+        }
+    }
+    return new ArrayList<>(result.values());
+}
+
+private String getSortedString(String str) {
+    char[] ch = str.toCharArray();
+    Arrays.sort(ch);
+    return new String(ch);
+}
+
+private String getSortedStringOptimized(String str) {
+    int[] freqs = new int[26];
+    // Arrays.fill(freq, 0);
+
+    for (char c : str.toCharArray()) {
+        freqs[c - 'a']++;
+    }
+
+    StringBuilder sb = new StringBuilder("");
+    for (int i = 0; i < 26; i++) {
+        sb.append('#').append(freqs[i]);
+    }
+    return sb.toString();
 }
 ```
 
