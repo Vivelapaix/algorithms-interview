@@ -2,8 +2,8 @@
 
 + [Reverse Linked List](#reverse-linked-list)
 + [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
-+ [Найти цикл в односвязном списке](#цикл-в-односвязном-списке)
-+ [Linked List Cycle Two](#linked-list-cycle-two)
++ [Linked List Cycle](#linked-list-cycle)
++ [Linked List Cycle II](#linked-list-cycle-ii)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
@@ -146,7 +146,41 @@ public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 }
 ```
 
-## Linked List Cycle Two
+## Linked List Cycle
+
+Дан односвязный список. Определеить, существует ли цикл в данном списке.
+
+https://leetcode.com/problems/linked-list-cycle/
+
+```java
+public boolean hasCycle(ListNode head) {
+    if (head == null) return false;
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (true) {
+        if (fast == null || fast.next == null) {
+            return false;
+        }
+
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow == fast) {
+            return true;
+        }
+    }
+}
+```
+Пояснения:
+```
+1) When slow pointer enters the loop, the fast pointer must be inside the loop. Let fast pointer be distance k from slow.
+
+2) Now if consider movements of slow and fast pointers, we can notice that distance between them (from slow to fast) increase by one after every iteration. After one iteration (of slow = next of slow and fast = next of next of fast), distance between slow and fast becomes k+1, after two iterations, k+2, and so on. When distance becomes n, they meet because they are moving in a cycle of length n.
+```
+
+## Linked List Cycle II
 
 Дан односвязный список, вернуть узел начала цикла в списке. Если нет цикла, то вернуть null.
 
@@ -181,33 +215,6 @@ public static ListNode detectCycle(ListNode head) {
 }
 ```
 
-## Найти цикл в односвязном списке 2
-
-Дан односвязный список. Определеить, существует ли цикл в данном списке.
-
-https://leetcode.com/problems/linked-list-cycle/
-
-```java
-public boolean hasCycle(ListNode head) {
-    if (head == null) return false;
-
-    ListNode slow = head;
-    ListNode fast = head;
-
-    while (true) {
-        if (fast == null || fast.next == null) {
-            return false;
-        }
-
-        slow = slow.next;
-        fast = fast.next.next;
-
-        if (slow == fast) {
-            return true;
-        }
-    }
-}
-```
 
 ## Палиндром односвязный список
 
