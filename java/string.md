@@ -458,3 +458,33 @@ public boolean isSubsequence(String s, String t) {
     return j >= s.length();
 }
 ```
+
+
+## Valid Anagram
+
+https://leetcode.com/problems/valid-anagram/
+
+```java
+public boolean isAnagram(String s, String t) {
+    return getSortedStringOptimized(s).equals(getSortedStringOptimized(t));
+}
+
+public String getSortedString(String str){
+    char[] strChars = str.toCharArray();
+    Arrays.sort(strChars);
+    return new String(strChars);
+}
+
+public String getSortedStringOptimized(String str){
+    int[] freqs = new int[26];
+    for (char c : str.toCharArray()) {
+        freqs[c - 'a']++;
+    }
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < 26; i++) {
+        sb.append('#').append(freqs[i]);
+    }
+    return sb.toString();
+}
+```
