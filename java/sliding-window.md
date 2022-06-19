@@ -1,4 +1,4 @@
-# Sliding 
+# Sliding Window
 
 + [Sliding Window Maximum](#sliding-window-maximum)
 
