@@ -1,6 +1,7 @@
 # Binary Search
 
 + [Binary Search](#binary-search)
++ [Guess Number Higher or Lower](#guess-number-higher-or-lower)
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
 
@@ -24,6 +25,31 @@ public int search(int[] nums, int target) {
         }
     }
 
+    return -1;
+}
+```
+
+## Guess Number Higher or Lower
+
+https://leetcode.com/problems/guess-number-higher-or-lower/
+
+```
+public int guessNumber(int n) {
+    int left = 1;
+    int right = n;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        int res = guess(mid);
+        if (res == 0) {
+            return mid;
+        } else if (res == -1) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
     return -1;
 }
 ```
