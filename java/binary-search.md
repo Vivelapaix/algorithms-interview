@@ -2,6 +2,7 @@
 
 + [Binary Search](#binary-search)
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
++ [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
 
 ## Binary Search
 
@@ -87,6 +88,38 @@ public int search(int[] nums, int target) {
             } else {
                 right = middle - 1;
             }
+        }
+    }
+    return -1;
+}
+```
+
+## Find Minimum in Rotated Sorted Array
+
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+
+```java
+public int findMin(int[] nums) {
+    if (nums.length == 1) return nums[0];
+
+    int left = 0, right = nums.length - 1;
+    if (nums[0] < nums[right]) return nums[0];
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (mid + 1 < nums.length && nums[mid] > nums[mid + 1]) {
+            return nums[mid + 1];
+        }
+
+        if (mid - 1 >= 0 && nums[mid - 1] > nums[mid]) {
+            return nums[mid];
+        }
+
+        if (nums[mid] > nums[0]) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
     }
     return -1;
