@@ -1,6 +1,7 @@
 # Tree
 
 + [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
++ [Balanced Binary Tree](#balanced-binary-tree)
 + [Same Tree](#same-tree)
 + [Symmetric Tree](#symmetric-tree)
 + [Invert Binary Tree](#invert-binary-tree)
@@ -21,6 +22,30 @@ https://leetcode.com/problems/maximum-depth-of-binary-tree/
 public int maxDepth(TreeNode root) {
     if (root == null) return 0;
     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+```
+
+## Balanced Binary Tree
+
+https://leetcode.com/problems/balanced-binary-tree/
+
+```java
+public boolean isBalanced(TreeNode root) {
+    return isBalancedHeight(root) != -1;
+}
+
+private int isBalancedHeight(TreeNode root) {
+    if (root == null) {
+        return 0;
+    }
+
+    int left = isBalancedHeight(root.left);
+    int right = isBalancedHeight(root.right);
+    if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+        return -1;
+    }
+
+    return 1 + Math.max(left, right);
 }
 ```
 
