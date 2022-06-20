@@ -1,6 +1,7 @@
 # Binary Search
 
 + [Binary Search](#binary-search)
++ [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 
 ## Binary Search
 
@@ -22,6 +23,42 @@ public int search(int[] nums, int target) {
         }
     }
 
+    return -1;
+}
+```
+
+## Search in Rotated Sorted Array
+
+https://leetcode.com/problems/search-in-rotated-sorted-array/
+
+```java
+public int search(int[] nums, int target) {
+    if (nums == null || nums.length == 0){
+        return -1;
+    }
+    int left = 0, right = nums.length - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+
+        if (nums[left] <= nums[mid]) {
+            if (target >= nums[left] && target <= nums[mid]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        } else {
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+    }
     return -1;
 }
 ```
