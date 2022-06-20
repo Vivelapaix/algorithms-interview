@@ -33,7 +33,7 @@ public int search(int[] nums, int target) {
 
 https://leetcode.com/problems/guess-number-higher-or-lower/
 
-```
+```java
 public int guessNumber(int n) {
     int left = 1;
     int right = n;
