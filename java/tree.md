@@ -6,6 +6,7 @@
 + [Symmetric Tree](#symmetric-tree)
 + [Invert Binary Tree](#invert-binary-tree)
 + [Path Sum](#path-sum)
++ [Path Sum II](#path-sum-ii)
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 + [Subtree of Another Tree](#subtree-of-another-tree)
 + [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
@@ -130,6 +131,34 @@ public boolean hasPathSum(TreeNode root, int sum) {
     if (root == null) return false;
     if (root.left == null && root.right == null) return root.val == sum; 
     return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+}
+```
+
+## Path Sum II
+
+https://leetcode.com/problems/path-sum-ii/
+
+```java
+public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+    List<List<Integer>> result = new ArrayList<>();
+    collectPathSum(root, targetSum, new LinkedList<>(), result);
+    return result;
+}
+
+public void collectPathSum(TreeNode node, int targetSum, LinkedList<Integer> path, List<List<Integer>> result) {
+    if (node == null) {
+        return;
+    }
+
+    path.add(node.val);
+
+    if (node.left == null && node.right == null && targetSum == node.val) {
+        result.add(new ArrayList<>(path));
+    }
+    collectPathSum(node.left, targetSum - node.val, path, result);
+    collectPathSum(node.right, targetSum - node.val, path, result);
+
+    path.removeLast();
 }
 ```
 
