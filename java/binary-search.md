@@ -4,6 +4,7 @@
 + [Guess Number Higher or Lower](#guess-number-higher-or-lower)
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
++ [Search a 2D Matrix](#search-a-2d-matrix)
 
 ## Binary Search
 
@@ -149,5 +150,49 @@ public int findMin(int[] nums) {
         }
     }
     return -1;
+}
+```
+
+
+## Search a 2D Matrix
+
+https://leetcode.com/problems/search-a-2d-matrix/
+
+```java
+public boolean searchMatrix(int[][] matrix, int target) {
+    int startRow = 0;
+    int endRow = matrix.length - 1;
+    int endColumn = matrix[0].length - 1;
+
+    while (startRow <= endRow) {
+        int midRow = startRow + (endRow - startRow) / 2;
+
+        if (matrix[midRow][0] <= target && target <= matrix[midRow][endColumn]) {
+            return binarySearch(matrix[midRow], target);
+        } else if (matrix[midRow][0] < target) {
+            startRow = midRow + 1;
+        } else {
+            endRow = midRow - 1;
+        }
+    }
+    return false;
+}
+
+public boolean binarySearch(int[] nums, int target) {
+    int left = 0;
+    int right = nums.length - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            return true;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return false;
 }
 ```
