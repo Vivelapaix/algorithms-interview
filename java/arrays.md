@@ -3,6 +3,7 @@
 + [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
 + [Best Time to Buy and Sell Stock II](#best-time-to-buy-and-sell-stock-ii)
 + [Best Time to Buy and Sell Stock with Transaction Fee](#best-time-to-buy-and-sell-stock-with-transaction-fee)
++ [Best Time to Buy and Sell Stock with Cooldown](#best-time-to-buy-and-sell-stock-with-cooldown)
 + [Container With Most Water](#container-with-most-water)
 + [Subarray Sum Equals K](#subarray-sum-equals-k)
 + [Maximum subarray](#maximum-subarray)
@@ -85,6 +86,38 @@ public int maxProfit(int[] prices, int fee) {
 }
 ```
 
+
+## Best Time to Buy and Sell Stock with Cooldown
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+
+```java
+public int maxProfit(int[] prices) {
+    if(prices == null || prices.length < 2) {
+        return 0;
+    }
+
+    int n = prices.length;
+    int[] buy = new int[n]; // max profit if we buy on ith day
+    int[] sell = new int[n]; // max profit if we sell on ith day
+
+    buy[0] = -prices[0]; // no cash thats's why we have debt
+    sell[0] = 0; // no cash no anything to sell
+    // max profit if don't buy or buy today and sell 1 day ago
+    buy[1] = Math.max(buy[0], sell[0] - prices[1]);
+    // max profit if we don't sell or sell today and buy 1 day ago
+    sell[1] = Math.max(sell[0], buy[0] + prices[1]);
+
+    for(int i = 2; i < n; ++i) {
+        // max profit if don't buy or buy today and sell 2 days ago
+        buy[i] = Math.max(buy[i - 1], sell[i - 2] - prices[i]);
+        // max profit if we don't sell or sell today and buy 1 day ago
+        sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i]);
+    }
+
+    return sell[n - 1];
+}
+```
 
 ## Container With Most Water
 
