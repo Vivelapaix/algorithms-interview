@@ -1,6 +1,7 @@
 # Arrays
 
 + [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
++ [Best Time to Buy and Sell Stock II](#best-time-to-buy-and-sell-stock-ii)
 + [Container With Most Water](#container-with-most-water)
 + [Subarray Sum Equals K](#subarray-sum-equals-k)
 + [Maximum subarray](#maximum-subarray)
@@ -15,32 +16,6 @@
 + [Max Consecutive Ones III](#max-consecutive-ones-iii)
 + [Two Sum](#two-sum)
 
-
-## Container With Most Water
-
-Два указателя. Вычисляем площадь, сдвигаем тот указатель, у которого значение высоты меньше.
-
-https://leetcode.com/problems/container-with-most-water/
-
-```java
-public int maxArea(int[] height) {
-    if (height == null || height.length == 0) return 0;
-
-    int left = 0, right = height.length - 1;
-    int maxAreaRes = 0;
-
-    while (left < right) {
-        maxAreaRes = Math.max(Math.min(height[left], height[right]) * (right - left),
-                              maxAreaRes);
-        if (height[left] < height[right]) {
-            left++;
-        } else {
-            right--;
-        }
-    }
-    return maxAreaRes;
-}
-```
 
 ## Best Time to Buy and Sell Stock
 
@@ -71,6 +46,49 @@ public int maxProfit(int[] prices) {
     return maxProfit;
 }
 ```
+
+## Best Time to Buy and Sell Stock II
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+
+```java
+public int maxProfit(int[] prices) {
+    int profit = 0;
+    for (int i = 1; i < prices.length; i++){
+        if(prices[i] > prices[i-1])
+            profit += prices[i]-prices[i-1];
+    }
+    return profit;
+}
+```
+
+
+## Container With Most Water
+
+Два указателя. Вычисляем площадь, сдвигаем тот указатель, у которого значение высоты меньше.
+
+https://leetcode.com/problems/container-with-most-water/
+
+```java
+public int maxArea(int[] height) {
+    if (height == null || height.length == 0) return 0;
+
+    int left = 0, right = height.length - 1;
+    int maxAreaRes = 0;
+
+    while (left < right) {
+        maxAreaRes = Math.max(Math.min(height[left], height[right]) * (right - left),
+                              maxAreaRes);
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxAreaRes;
+}
+```
+
 
 ## Subarray Sum Equals K
 
