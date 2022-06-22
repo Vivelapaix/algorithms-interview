@@ -9,6 +9,7 @@
 + [Longest Consecutive Sequence](#longest-consecutive-sequence)
 + [Product of Array Except Self](#product-of-array-except-self)
 + [3Sum](#3sum)
++ [4Sum](#4sum)
 + [Closest Two Sum](#closest-two-sum)
 + [Max Consecutive Ones](#max-consecutive-ones)
 + [Max Consecutive Ones III](#max-consecutive-ones-iii)
@@ -275,6 +276,38 @@ public List<List<Integer>> threeSum(int[] nums) {
         }
     }
     return res;
+}
+```
+
+## 4Sum
+
+https://leetcode.com/problems/4sum/
+
+```java
+public List<List<Integer>> fourSum(int[] nums, int target) {    
+    Arrays.sort(nums);
+    Set<List<Integer>> result = new HashSet();
+
+    for(int i=0; i < nums.length-3; i++) {
+        for(int j=i+1; j < nums.length-2; j++) {
+            int start = j + 1, end = nums.length - 1;
+            while(start<end) {
+                long sum = (long) nums[i] + nums[j] + nums[start] + nums[end];
+                if(sum == (long)target) {
+                    result.add(Arrays.asList(nums[i], nums[j], nums[start], nums[end]));
+                    while (start < end && nums[start] == nums[start+1]) start++;
+                    while (start < end && nums[end] == nums[end-1]) end--;
+                    start++;
+                    end--;
+                } else if (sum < (long) target) {
+                    start++;
+                } else {
+                    end--;
+                }
+            }
+        }
+    }
+    return new ArrayList(result);	
 }
 ```
 
