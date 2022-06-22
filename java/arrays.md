@@ -73,7 +73,7 @@ public int maxProfit(int[] prices, int fee) {
     int curBuy = 0, curSell = 0, prevBuy = 0, prevSell = 0;
 
     prevSell = 0; // max profit after sell, nothing to sell
-    prevBuy = -prices[0] // max profit after buy, only debt on 1th day
+    prevBuy = -prices[0]; // max profit after buy
 
     for (int i = 0; i < prices.length; i++) {
         // don't buy, or buy today after selling at day i-1 or prior
@@ -81,8 +81,10 @@ public int maxProfit(int[] prices, int fee) {
         // don't sell, or sell today after buying at day i-1 or prior
         curSell = Math.max(prevSell, prevBuy + prices[i] - fee);
 
-
-    }    
+        prevBuy = curBuy;
+        prevSell = curSell;
+    }
+    return Math.max(curBuy, curSell);
 }
 ```
 
