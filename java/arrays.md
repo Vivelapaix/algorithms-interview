@@ -2,6 +2,7 @@
 
 + [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
 + [Best Time to Buy and Sell Stock II](#best-time-to-buy-and-sell-stock-ii)
++ [Best Time to Buy and Sell Stock with Transaction Fee](#best-time-to-buy-and-sell-stock-with-transaction-fee)
 + [Container With Most Water](#container-with-most-water)
 + [Subarray Sum Equals K](#subarray-sum-equals-k)
 + [Maximum subarray](#maximum-subarray)
@@ -59,6 +60,28 @@ public int maxProfit(int[] prices) {
             profit += prices[i]-prices[i-1];
     }
     return profit;
+}
+```
+
+## Best Time to Buy and Sell Stock with Transaction Fee
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+
+```java
+public int maxProfit(int[] prices, int fee) {
+    int curBuy = 0, curSell = 0, prevBuy = 0, prevSell = 0;
+
+    prevSell = 0; // max profit after sell, nothing to sell
+    prevBuy = -prices[0] // max profit after buy, only debt on 1th day
+
+    for (int i = 0; i < prices.length; i++) {
+        // don't buy, or buy today after selling at day i-1 or prior
+        curBuy = Math.max(prevBuy, prevSell - prices[i]);
+        // don't sell, or sell today after buying at day i-1 or prior
+        curSell = Math.max(prevSell, prevBuy + prices[i] - fee);
+
+
+    }    
 }
 ```
 
