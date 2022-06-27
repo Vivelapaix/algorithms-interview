@@ -18,6 +18,7 @@
 + [Max Consecutive Ones III](#max-consecutive-ones-iii)
 + [Two Sum](#two-sum)
 + [Move Zeroes](#move-zeroes)
++ [Summary Ranges](#summary-ranges)
 
 
 ## Best Time to Buy and Sell Stock
@@ -535,5 +536,35 @@ public void moveZeroes(int[] nums) {
         }
         cur++;
     }
+}
+```
+
+## Summary Ranges
+
+https://leetcode.com/problems/summary-ranges/
+
+```java
+public List<String> summaryRanges(int[] nums) {
+    //Arrays.sort(nums);
+    List<String> result = new ArrayList<>();
+
+    int left = 0, right = 0;
+
+    while (left < nums.length) {
+
+        while (right + 1 < nums.length && nums[right + 1] - nums[right] == 1) {
+            right++;
+        }
+
+        if (left == right) {
+            result.add("" + nums[left]);
+        } else {
+            result.add(nums[left] + "->" + nums[right]);
+        }
+
+        left = ++right;
+    }
+
+    return result;
 }
 ```
