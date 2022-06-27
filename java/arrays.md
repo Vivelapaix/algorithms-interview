@@ -17,6 +17,7 @@
 + [Max Consecutive Ones](#max-consecutive-ones)
 + [Max Consecutive Ones III](#max-consecutive-ones-iii)
 + [Two Sum](#two-sum)
++ [Move Zeroes](#move-zeroes)
 
 
 ## Best Time to Buy and Sell Stock
@@ -506,5 +507,33 @@ public int[] twoSum(int[] nums, int target) {
         map.put(nums[i], i);
     }
     return new int[] {-1, -1};
+}
+```
+
+
+## Move Zeroes
+
+https://leetcode.com/problems/move-zeroes/
+
+```java
+public void moveZeroes(int[] nums) {
+    int lastZeroIndex = 0; // all elements before is non-zero
+    while (lastZeroIndex < nums.length && nums[lastZeroIndex] != 0) {
+        lastZeroIndex++;
+    }
+
+    int cur = lastZeroIndex;
+    while (cur < nums.length && nums[cur] == 0) {
+        cur++;
+    }
+
+    while (cur < nums.length) {
+        if (nums[cur] != 0) {
+            nums[lastZeroIndex] = nums[cur];
+            nums[cur] = 0;
+            lastZeroIndex++; 
+        }
+        cur++;
+    }
 }
 ```
