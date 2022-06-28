@@ -19,6 +19,7 @@
 + [Two Sum](#two-sum)
 + [Move Zeroes](#move-zeroes)
 + [Summary Ranges](#summary-ranges)
++ [Maximize Distance to Closest Person](#maximize-distance-to-closest-person)
 
 
 ## Best Time to Buy and Sell Stock
@@ -566,5 +567,32 @@ public List<String> summaryRanges(int[] nums) {
     }
 
     return result;
+}
+```
+
+
+## Maximize Distance to Closest Person
+
+https://leetcode.com/problems/maximize-distance-to-closest-person/
+
+```java
+public int maxDistToClosest(int[] seats) {
+    int prevPerson = -1;
+    int maxDist = 0;
+
+    for (int i = 0; i < seats.length; i++) {
+        if (seats[i] == 1) {
+            if (prevPerson == -1) {
+                maxDist = i; // place Alex to start of row
+            } else {
+                int mid = (i - prevPerson) / 2; // place Alex between two people
+                maxDist = Math.max(maxDist, mid);
+            }
+            prevPerson = i;
+        }
+    }
+
+    maxDist = Math.max(maxDist, seats.length - prevPerson - 1); // if only 1 place in row taken
+    return maxDist;
 }
 ```
