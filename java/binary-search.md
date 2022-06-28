@@ -5,6 +5,7 @@
 + [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 + [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
 + [Search a 2D Matrix](#search-a-2d-matrix)
++ [Find K Closest Elements](#find-k-closest-elements)
 
 ## Binary Search
 
@@ -194,5 +195,33 @@ public boolean binarySearch(int[] nums, int target) {
         }
     }
     return false;
+}
+```
+
+
+## Find K Closest Elements
+
+https://leetcode.com/problems/find-k-closest-elements/
+
+```java
+public List<Integer> findClosestElements(int[] arr, int k, int x) {
+    int left = 0, right = arr.length - 1 - k;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (x - arr[mid] > arr[mid + k] - x) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    List<Integer> result = new ArrayList<>();
+    for (int i = left; i < left + k; i++) {
+        result.add(arr[i]);
+    }
+
+    return result;
 }
 ```
