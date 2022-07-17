@@ -200,6 +200,30 @@ public int subarraySum(int[] nums, int k) {
 }
 ```
 
+
+Solution if we want to see start and end indices:
+```java
+public static int[] subarraySum(int[] nums, int k) {
+    if (nums == null || nums.length == 0) {
+        return new int[]{-1, -1};
+    }
+
+    int sum = 0;
+    Map<Integer, Integer> indices = new HashMap<>();
+    indices.put(0, -1);
+
+    for (int i = 0; i < nums.length; i++) {
+        sum += nums[i];
+        if (indices.containsKey(sum - k)) {
+            return new int[]{indices.get(sum - k) + 1, i};
+        }
+        indices.put(sum, i);
+    }
+
+    return new int[]{-1, -1};
+}
+```
+
 ## Maximum subarray
 
 Выбрать максимум либо из подмассива, в котором всего один текущий элемент, либо из лучшего решения, полученного на предыдущих шагах.
@@ -512,7 +536,6 @@ public int[] twoSum(int[] nums, int target) {
     return new int[] {-1, -1};
 }
 ```
-
 
 ## Move Zeroes
 
