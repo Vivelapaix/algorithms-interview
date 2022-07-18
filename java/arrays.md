@@ -21,6 +21,7 @@
 + [Summary Ranges](#summary-ranges)
 + [Maximize Distance to Closest Person](#maximize-distance-to-closest-person)
 + [Squares of a Sorted Array](#squares-of-a-sorted-array)
++ [Line Reflection](#line-reflection)
 
 
 ## Best Time to Buy and Sell Stock
@@ -663,5 +664,116 @@ public int[] sortedSquares(int[] A) {
     }
 
     return res;
+}
+```
+
+## Line Reflection
+
+1. Обговорить, что при сложении не будет переполнения
+2. Есть ли у нас дубликаты одной и той же точки
+3. Есть ли точки, лежащие на самой оси симметрии
+
+https://leetcode.com/problems/line-reflection
+
+Solution 1:
+```java
+// если наличие дубликатов влияет на ответ
+public boolean isReflected(int[][] points) {
+    if (points == null || points.length == 0 || points[0].length != 2) {
+        return true;
+    }
+
+    int max = Integer.MIN_VALUE;
+    int min = Integer.MAX_VALUE;
+    Map<String, Integer> freq = new HashMap<>();
+    for (int i = 0; i < points.length; i++) {
+        max = Math.max(max, points[i][0]);
+        min = Math.min(min, points[i][0]);
+        String key = points[i][0] + "," + points[i][1];
+        freq.put(key, freq.getOrDefault(key, 0) + 1);
+    }
+
+    int doubleBar = max + min;
+    for (int i = 0; i < points.length; i++) {
+        String key = (doubleBar - points[i][0]) + "," + points[i][1];
+        if (!freq.containsKey(key)) {
+            return false;
+        } else {
+            int val = freq.get(key);
+            if (val == 1) {
+                freq.remove(key);
+            } else {
+                freq.put(key, val - 1);
+            }
+        }
+
+    }
+    return freq.size() == 0;
+}
+```
+
+Solution 2:
+```java
+// дубликаты не влияют на ответ
+public boolean isReflected(int[][] points) {
+    if (points == null || points.length == 0 || points[0].length != 2) {
+        return true;
+    }
+
+    int max = Integer.MIN_VALUE;
+    int min = Integer.MAX_VALUE;
+    Set<String> set = new HashSet<String>();
+    for (int i = 0; i < points.length; i++) {
+        max = Math.max(max, points[i][0]);
+        min = Math.min(min, points[i][0]);
+        String s = points[i][0] + "," + points[i][1];
+        set.add(s);
+    }
+
+    int sum = max + min;
+    for (int i = 0; i < points.length; i++) {
+        String s = (sum - points[i][0]) + "," + points[i][1];
+        if (!set.contains(s)) {
+            return false;
+        }
+    }
+    return true;
+}
+```
+
+Solution 3
+```java
+// еще одно красивое решение
+public boolean isReflected(int[][] points) {
+    int min = Integer.MAX_VALUE;
+    int max = Integer.MIN_VALUE;
+    Map<Integer, Set<Integer>> ys = new HashMap<>();
+    for (int i = 0; i < points.length; i++) {
+        int x = points[i][0];
+        int y = points[i][1];
+        min = Math.min(min, x);
+        max = Math.max(max, x);
+        if (!ys.containsKey(x)) {
+            ys.put(x, new HashSet<Integer>());
+        }
+        ys.get(x).add(y);
+    }
+
+
+    int doublebar = (min + max);
+
+    for (int i = 0; i < points.length; i ++) {
+        int x = points[i][0];
+        int y = points[i][1];
+        int mx = doublebar - x;
+        if (!ys.containsKey(mx)) {
+            return false;
+        }
+        if (!ys.get(mx).contains(y)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 ```
