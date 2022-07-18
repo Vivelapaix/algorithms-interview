@@ -12,6 +12,7 @@
 + [Is Subsequence](#is-subsequence)
 + [Valid Anagram](#valid-anagram)
 + [Find All Anagrams in a String](#find-all-anagrams-in-a-string)
++ [Permutation in String](#permutation-in-string)
 
 ## Longest Substring Without Repeating Characters
 
@@ -525,5 +526,41 @@ public boolean isFreqEquals(int[] sFreq, int[] pFreq) {
         }
     }
     return true;
+}
+```
+
+## Permutation in String
+
+https://leetcode.com/problems/permutation-in-string/
+
+```java
+public boolean checkInclusion(String pattern, String str) {
+
+    Map<Character, Integer> map = new HashMap<>();
+    for (char c : pattern.toCharArray())
+        map.put(c, map.getOrDefault(c, 0) + 1);
+
+    int matched = 0;
+    int start = 0, end = 0;
+    while (end < str.length()) {
+        char c = str.charAt(end);
+        if (map.containsKey(c)) {
+            map.put(c, map.get(c) - 1);
+            if (map.get(c) == 0) matched += 1;
+        }
+
+        if (matched == map.size()) return true;
+
+        if (end - start + 1 == pattern.length()) {
+            char startChar = str.charAt(start);
+            if (map.containsKey(startChar)) {
+                if (map.get(startChar) == 0) matched--;
+                map.put(startChar, map.get(startChar) + 1);
+            }
+            start += 1;
+        }
+        end += 1;
+    }
+    return false;
 }
 ```
