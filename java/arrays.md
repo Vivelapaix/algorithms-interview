@@ -669,6 +669,8 @@ public int[] sortedSquares(int[] A) {
 
 ## Line Reflection
 
+Given n points on a 2D plane, find if there is such a line parallel to y-axis that reflect the given points.
+
 1. Обговорить, что при сложении не будет переполнения
 2. Есть ли у нас дубликаты одной и той же точки
 3. Есть ли точки, лежащие на самой оси симметрии
