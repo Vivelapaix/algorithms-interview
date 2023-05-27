@@ -1,7 +1,7 @@
 # Linked list
 
 + [Reverse Linked List](#reverse-linked-list)
-+ [Пересечение двух односвязных списков](#пересечение-двух-односвязных-списков)
++ [Intersection of Two Linked Lists](#intersection-of-two-linked-lists)
 + [Linked List Cycle](#linked-list-cycle)
 + [Linked List Cycle II](#linked-list-cycle-ii)
 + [Палиндром односвязный список](#палиндром-односвязный-список)
@@ -107,7 +107,7 @@ public class MyLinkedList<E>{
 }      
 ```
 
-## Пересечение двух односвязных списков
+## Intersection of Two Linked Lists
 
 Найти узел пересечения двух односвязных списков, имеющих общий конец списков. 
 
