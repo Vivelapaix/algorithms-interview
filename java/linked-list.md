@@ -4,7 +4,7 @@
 + [Intersection of Two Linked Lists](#intersection-of-two-linked-lists)
 + [Linked List Cycle](#linked-list-cycle)
 + [Linked List Cycle II](#linked-list-cycle-ii)
-+ [Палиндром односвязный список](#палиндром-односвязный-список)
++ [Palindrome Linked List](#palindrome-linked-list)
 + [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 + [Reorder List](#reorder-list)
 + [Middle of the Linked List](#middle-of-the-linked-list)
@@ -217,7 +217,7 @@ public static ListNode detectCycle(ListNode head) {
 ```
 
 
-## Палиндром односвязный список
+## Palindrome Linked List
 
 Проверить, является ли односвязный список палиндромом.
 
