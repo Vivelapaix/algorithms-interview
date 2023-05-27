@@ -12,6 +12,7 @@
 + [Sort List](#sort-list)
 + [Add Two Numbers](#add-two-numbers)
 + [Merge k Sorted Lists](#merge-k-sorted-lists)
++ [Remove Duplicates from Sorted List II](#remove-duplicates-from-sorted-list-ii)
 
 
 ## Reverse Linked List
@@ -578,3 +579,31 @@ private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 которые на расстоянии 1, потом на расстоянии 2, потом на расстоянии 4
 ```
 
+## Remove Duplicates from Sorted List II
+
+https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+
+```java
+public ListNode deleteDuplicates(ListNode head) {
+    ListNode dummy = new ListNode(-1, head);
+    ListNode cur = dummy;
+    while (cur != null) {
+        ListNode lastDuplicate = passDuplicates(cur.next);
+        if (lastDuplicate == cur.next) {
+            cur = cur.next;
+        } else {
+            cur.next = lastDuplicate.next;
+        }
+    }
+    return dummy.next;
+}
+
+public ListNode passDuplicates(ListNode head) {
+    ListNode cur = head, prev = null;
+    while (cur != null && cur.val == head.val) {
+        prev = cur;
+        cur = cur.next;
+    } 
+    return prev;
+}
+```
