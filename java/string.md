@@ -13,6 +13,7 @@
 + [Valid Anagram](#valid-anagram)
 + [Find All Anagrams in a String](#find-all-anagrams-in-a-string)
 + [Permutation in String](#permutation-in-string)
++ [Reverse Words in a String](#reverse-words-in-a-string)
 
 ## Longest Substring Without Repeating Characters
 
@@ -562,5 +563,48 @@ public boolean checkInclusion(String pattern, String str) {
         end += 1;
     }
     return false;
+}
+```
+
+## Reverse Words in a String
+
+https://leetcode.com/problems/reverse-words-in-a-string/
+
+```java
+public String reverseWords(String s) {
+    StringBuilder sb = new StringBuilder();
+    int i = s.length() - 1, wordStart = 0;
+    boolean isWordBefore = false;
+    while (i >= 0) {
+        if (!isWordPart(s.charAt(i))) {
+            i--;
+            continue;
+        }
+
+        if (isWordBefore) {
+            sb.append(" ");
+            isWordBefore = false;
+        }
+        wordStart = passWord(s, i);
+        sb.append(s.substring(wordStart + 1, i + 1));
+        if (i - wordStart > 0) {
+            isWordBefore = true;
+        }
+        i = wordStart;
+    }
+
+    return sb.toString();
+}
+
+public int passWord(String s, int start) {
+    int i = start;
+    while (i >= 0 && isWordPart(s.charAt(i))) {
+        i--;
+    }
+    return i;
+}
+
+public boolean isWordPart(char t) {
+    return t >= 'A' && t <= 'Z' || t >= 'a' && t <= 'z' || t >= '0' && t <= '9';
 }
 ```
