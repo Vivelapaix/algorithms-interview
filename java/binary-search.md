@@ -13,8 +13,7 @@ https://leetcode.com/problems/binary-search/
 
 ```java
 public int search(int[] nums, int target) {
-    int left = 0;
-    int right = nums.length;
+    int left = 0, right = nums.length - 1;
 
     while (left <= right) {
         int middle = left + (right - left) / 2;
@@ -26,7 +25,6 @@ public int search(int[] nums, int target) {
             right = middle - 1;
         }
     }
-
     return -1;
 }
 ```
