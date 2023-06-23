@@ -22,6 +22,7 @@
 + [Maximize Distance to Closest Person](#maximize-distance-to-closest-person)
 + [Squares of a Sorted Array](#squares-of-a-sorted-array)
 + [Line Reflection](#line-reflection)
++ [Intersection of Two Arrays II](#intersection-of-two-arrays-ii)
 
 
 ## Best Time to Buy and Sell Stock
@@ -777,5 +778,32 @@ public boolean isReflected(int[][] points) {
     }
 
     return true;
+}
+```
+
+## Intersection of Two Arrays II
+
+https://leetcode.com/problems/intersection-of-two-arrays-ii/
+
+```java
+public int[] intersect(int[] nums1, int[] nums2) {
+    Map<Integer, Integer> freq = new HashMap<>();
+    for (int n: nums1) {
+        freq.put(n, freq.getOrDefault(n, 0) + 1);
+    }
+    
+    List<Integer> result = new ArrayList<>();
+    for (int n: nums2) {
+        Integer count = freq.get(n);
+        if (count != null && count > 0) {
+            result.add(n);
+            freq.put(n, count - 1);
+        }
+    }
+    int[] res = new int[result.size()];
+    for (int i = 0; i < res.length; i++) {
+        res[i] = result.get(i);
+    }
+    return res;
 }
 ```
