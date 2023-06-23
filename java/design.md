@@ -2,6 +2,7 @@
 
 + [Insert Delete GetRandom O(1)](#insert-delete-getrandom-o1)
 + [Binary Search Tree Iterator](#binary-search-tree-iterator)
++ [Design an ATM Machine](#design-an-atm-machine)
 
 ## Insert Delete GetRandom O(1)
 
@@ -85,5 +86,52 @@ class BSTIterator {
     public boolean hasNext() {
         return stack.size() > 0;
     }
+}
+```
+
+## Design an ATM Machine
+
+https://leetcode.com/problems/design-an-atm-machine/
+
+1. Учесть, что deposit выполняется много раз, что приведет к переполнению при сложении, поэтому long[]
+2. Цикл должен продолжаться только до тех пор, пока remainder > 0, иначе нет смысла, когда уже нечего разменивать
+3. Может получиться так, что у нас банкнот 2, но при делении получаем, что нужно 3 банкноты данного номинала, поэтому берем минимум, то есть в любом случае берем 2 банкноты
+4. Обязательно формируем сразу ответ, потом только в самом конце вычитаем из банкнот
+
+```java
+class ATM {
+
+    private long[] banknotes;
+    private long[] nominal;
+
+    public ATM() {
+        this.nominal = new long[]{20, 50, 100, 200, 500};
+        this.banknotes = new long[nominal.length];
+    }
+
+    public void deposit(int[] banknotesCount) {
+        for (int i = 0; i < banknotesCount.length; i++) {
+            banknotes[i] += banknotesCount[i];
+        }
+    }
+
+    public int[] withdraw(int amount) {
+        int remainder = amount;
+        long count = 0;
+        int[] result = new int[banknotes.length];
+        for (int i = banknotes.length - 1; i >= 0 && remainder > 0; i--) {          
+            count = Math.min(remainder / nominal[i], banknotes[i]);
+            result[i] = (int) count;
+            remainder -= count * nominal[i];
+        }
+        if (remainder != 0) {
+            return new int[]{-1};
+        }
+        for (int i = 0; i < banknotes.length; i++) {
+            banknotes[i] -= result[i];
+        }
+        return result;
+    }
+
 }
 ```
